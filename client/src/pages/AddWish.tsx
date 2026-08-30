@@ -3,9 +3,13 @@ import {
   useRef,
   useState,
 } from "react";
+
 import type { FormEvent } from "react";
+
 import axios from "axios";
+
 import { useNavigate } from "react-router-dom";
+
 import {
   MdCake,
   MdFavorite,
@@ -26,14 +30,8 @@ import {
   MdKeyboardArrowUp,
   MdKeyboardArrowDown,
 } from "react-icons/md";
+
 import "./AddWish.css";
-
-/* =========================================
-   API BASE URL
-========================================= */
-
-const API_BASE_URL =
-  import.meta.env.VITE_API_URL || "http://localhost:5000";
 
 function AddWish() {
   const navigate = useNavigate();
@@ -70,27 +68,36 @@ function AddWish() {
     )
   );
 
-  const calendarRef = useRef<HTMLDivElement>(null);
+  const calendarRef =
+    useRef<HTMLDivElement>(null);
 
   /* =========================================
      TIME PICKER
   ========================================= */
 
-  const [timePickerOpen, setTimePickerOpen] = useState(false);
+  const [timePickerOpen, setTimePickerOpen] =
+    useState(false);
 
-  const [selectedHour, setSelectedHour] = useState(9);
-  const [selectedMinute, setSelectedMinute] = useState(0);
+  const [selectedHour, setSelectedHour] =
+    useState(9);
+
+  const [selectedMinute, setSelectedMinute] =
+    useState(0);
+
   const [selectedPeriod, setSelectedPeriod] =
     useState<"AM" | "PM">("AM");
 
-  const timePickerRef = useRef<HTMLDivElement>(null);
+  const timePickerRef =
+    useRef<HTMLDivElement>(null);
 
   /* =========================================
      CLOSE PICKERS OUTSIDE CLICK
   ========================================= */
 
   useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
+    const handleClickOutside = (
+      event: MouseEvent
+    ) => {
       const target = event.target as Node;
 
       if (
@@ -126,7 +133,9 @@ function AddWish() {
   ========================================= */
 
   useEffect(() => {
-    const handleEscape = (event: KeyboardEvent) => {
+    const handleEscape = (
+      event: KeyboardEvent
+    ) => {
       if (event.key === "Escape") {
         setCalendarOpen(false);
         setTimePickerOpen(false);
@@ -160,7 +169,7 @@ function AddWish() {
   };
 
   /* =========================================
-     GET USER NAME
+     GET LOGGED-IN USER NAME
   ========================================= */
 
   const getLoggedInUserName = () => {
@@ -197,13 +206,25 @@ function AddWish() {
   ========================================= */
 
   const clearAuth = () => {
-    localStorage.removeItem("smartwish_token");
-    localStorage.removeItem("smartwish_user");
+    localStorage.removeItem(
+      "smartwish_token"
+    );
+
+    localStorage.removeItem(
+      "smartwish_user"
+    );
+
     localStorage.removeItem("token");
     localStorage.removeItem("user");
 
-    sessionStorage.removeItem("smartwish_token");
-    sessionStorage.removeItem("smartwish_user");
+    sessionStorage.removeItem(
+      "smartwish_token"
+    );
+
+    sessionStorage.removeItem(
+      "smartwish_user"
+    );
+
     sessionStorage.removeItem("token");
     sessionStorage.removeItem("user");
   };
@@ -277,10 +298,34 @@ function AddWish() {
       setLoading(true);
 
       /* =====================================
-         AUTH TOKEN
+         GET JWT TOKEN
       ===================================== */
 
       const token = getAuthToken();
+
+      console.log(
+        "================================"
+      );
+
+      console.log(
+        "ADD WISH AUTH CHECK"
+      );
+
+      console.log(
+        "Token exists:",
+        Boolean(token)
+      );
+
+      console.log(
+        "Token:",
+        token
+          ? `${token.substring(0, 20)}...`
+          : "NO TOKEN"
+      );
+
+      console.log(
+        "================================"
+      );
 
       if (!token) {
         setError(
@@ -288,47 +333,104 @@ function AddWish() {
         );
 
         setTimeout(() => {
-          navigate("/login");
+          navigate("/login", {
+            replace: true,
+          });
         }, 800);
 
         return;
       }
 
+      /* =====================================
+         GET SENDER NAME
+      ===================================== */
+
       const senderName =
         getLoggedInUserName();
 
+      console.log(
+        "Logged-in sender:",
+        senderName
+      );
+
       /* =====================================
-         SEND EVENT TO BACKEND
+         CREATE EVENT
+
+         IMPORTANT FIX:
+         Use SAME LOCAL BACKEND as Login.tsx
+
+         Login:
+         http://localhost:5000/api/auth/login
+
+         AddWish:
+         http://localhost:5000/api/events
       ===================================== */
 
       const response = await axios.post(
-        `${API_BASE_URL}/api/events`,
+        "http://localhost:5000/api/events",
         {
           senderName,
-          personName: personName.trim(),
-          email: email.trim().toLowerCase(),
+
+          personName:
+            personName.trim(),
+
+          email:
+            email.trim().toLowerCase(),
+
           occasion,
+
           eventDate,
+
           eventTime,
-          message: message.trim(),
-          repeatYearly: Boolean(repeatYearly),
+
+          message:
+            message.trim(),
+
+          repeatYearly:
+            Boolean(repeatYearly),
         },
         {
           headers: {
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
+            Authorization:
+              `Bearer ${token}`,
+
+            "Content-Type":
+              "application/json",
           },
+
+          /* Prevent axios from treating
+             redirects strangely */
+          validateStatus: (status) =>
+            status >= 200 &&
+            status < 300,
         }
       );
 
+      /* =====================================
+         SUCCESS RESPONSE
+      ===================================== */
+
       console.log(
-        "Wish created:",
+        "================================"
+      );
+
+      console.log(
+        "WISH CREATED SUCCESSFULLY"
+      );
+
+      console.log(
+        "Status:",
+        response.status
+      );
+
+      console.log(
+        "Response:",
         response.data
       );
 
-      /* =====================================
-         SUCCESS
-      ===================================== */
+      console.log(
+        "================================"
+      );
 
       setSuccess(
         repeatYearly
@@ -362,10 +464,30 @@ function AddWish() {
 
       setCalendarOpen(false);
       setTimePickerOpen(false);
+
     } catch (err: any) {
       console.error(
-        "Create wish error:",
-        err
+        "================================"
+      );
+
+      console.error(
+        "CREATE WISH ERROR"
+      );
+
+      console.error(err);
+
+      console.error(
+        "Status:",
+        err?.response?.status
+      );
+
+      console.error(
+        "Response:",
+        err?.response?.data
+      );
+
+      console.error(
+        "================================"
       );
 
       /* =====================================
@@ -382,8 +504,64 @@ function AddWish() {
         );
 
         setTimeout(() => {
-          navigate("/login");
+          navigate("/login", {
+            replace: true,
+          });
         }, 800);
+
+        return;
+      }
+
+      /* =====================================
+         FORBIDDEN
+      ===================================== */
+
+      if (
+        err?.response?.status === 403
+      ) {
+        setError(
+          "You are not authorized to schedule this wish."
+        );
+
+        return;
+      }
+
+      /* =====================================
+         NOT FOUND
+      ===================================== */
+
+      if (
+        err?.response?.status === 404
+      ) {
+        setError(
+          "The event API was not found. Please check that the backend is running."
+        );
+
+        return;
+      }
+
+      /* =====================================
+         SERVER ERROR
+      ===================================== */
+
+      if (
+        err?.response?.status >= 500
+      ) {
+        setError(
+          "The server encountered an error. Please try again."
+        );
+
+        return;
+      }
+
+      /* =====================================
+         NETWORK ERROR
+      ===================================== */
+
+      if (!err?.response) {
+        setError(
+          "Unable to connect to the server. Please make sure the SmartWish backend is running."
+        );
 
         return;
       }
@@ -399,6 +577,7 @@ function AddWish() {
         serverMessage ||
           "Unable to schedule the wish. Please check your server."
       );
+
     } finally {
       setLoading(false);
     }
@@ -408,7 +587,9 @@ function AddWish() {
      DATE HELPERS
   ========================================= */
 
-  const getDateString = (date: Date) => {
+  const getDateString = (
+    date: Date
+  ) => {
     const year =
       date.getFullYear();
 
@@ -445,7 +626,9 @@ function AddWish() {
   };
 
   const formattedDate =
-    formatDateForDisplay(eventDate);
+    formatDateForDisplay(
+      eventDate
+    );
 
   /* =========================================
      TIME HELPERS
@@ -473,7 +656,7 @@ function AddWish() {
     );
 
   /* =========================================
-     CONVERT 12 HOUR TO 24 HOUR
+     CONVERT 12 HOUR → 24 HOUR
   ========================================= */
 
   const convertTo24Hour = (
@@ -493,10 +676,14 @@ function AddWish() {
       }
     }
 
-    return `${String(hour24).padStart(
+    return `${String(
+      hour24
+    ).padStart(
       2,
       "0"
-    )}:${String(minute).padStart(
+    )}:${String(
+      minute
+    ).padStart(
       2,
       "0"
     )}`;
@@ -522,7 +709,9 @@ function AddWish() {
         period
       );
 
-    setEventTime(backendTime);
+    setEventTime(
+      backendTime
+    );
   };
 
   /* =========================================
@@ -689,27 +878,31 @@ function AddWish() {
     setCalendarOpen(false);
   };
 
-  const goToPreviousMonth = () => {
-    setCalendarMonth(
-      new Date(
-        calendarMonth.getFullYear(),
-        calendarMonth.getMonth() - 1,
-        1
-      )
-    );
-  };
+  const goToPreviousMonth =
+    () => {
+      setCalendarMonth(
+        new Date(
+          calendarMonth.getFullYear(),
+          calendarMonth.getMonth() - 1,
+          1
+        )
+      );
+    };
 
-  const goToNextMonth = () => {
-    setCalendarMonth(
-      new Date(
-        calendarMonth.getFullYear(),
-        calendarMonth.getMonth() + 1,
-        1
-      )
-    );
-  };
+  const goToNextMonth =
+    () => {
+      setCalendarMonth(
+        new Date(
+          calendarMonth.getFullYear(),
+          calendarMonth.getMonth() + 1,
+          1
+        )
+      );
+    };
 
-  const isToday = (date: Date) => {
+  const isToday = (
+    date: Date
+  ) => {
     return (
       getDateString(date) ===
       getDateString(today)
@@ -745,21 +938,23 @@ function AddWish() {
      OCCASION ICON
   ========================================= */
 
-  const getOccasionIcon = () => {
-    if (
-      occasion === "Birthday"
-    ) {
-      return <MdCake />;
-    }
+  const getOccasionIcon =
+    () => {
+      if (
+        occasion === "Birthday"
+      ) {
+        return <MdCake />;
+      }
 
-    if (
-      occasion === "Anniversary"
-    ) {
-      return <MdFavorite />;
-    }
+      if (
+        occasion ===
+        "Anniversary"
+      ) {
+        return <MdFavorite />;
+      }
 
-    return <MdCelebration />;
-  };
+      return <MdCelebration />;
+    };
 
   return (
     <div className="addwish-layout">
@@ -767,6 +962,7 @@ function AddWish() {
       {/* BACKGROUND */}
 
       <div className="addwish-orb addwish-orb-one"></div>
+
       <div className="addwish-orb addwish-orb-two"></div>
 
       {/* MAIN */}
@@ -825,13 +1021,11 @@ function AddWish() {
 
         {success && (
           <div className="form-alert success-alert">
-
             <MdCheckCircle />
 
             <span>
               {success}
             </span>
-
           </div>
         )}
 
@@ -839,13 +1033,11 @@ function AddWish() {
 
         {error && (
           <div className="form-alert error-alert">
-
             <MdWarning />
 
             <span>
               {error}
             </span>
-
           </div>
         )}
 
@@ -867,7 +1059,6 @@ function AddWish() {
               </div>
 
               <div>
-
                 <h2>
                   Recipient Details
                 </h2>
@@ -875,12 +1066,11 @@ function AddWish() {
                 <p>
                   Who should receive this wish?
                 </p>
-
               </div>
 
             </div>
 
-            {/* RECIPIENT */}
+            {/* PERSON NAME */}
 
             <div className="input-group">
 
@@ -948,7 +1138,8 @@ function AddWish() {
                 <button
                   type="button"
                   className={
-                    occasion === "Birthday"
+                    occasion ===
+                    "Birthday"
                       ? "occasion-option active"
                       : "occasion-option"
                   }
@@ -958,7 +1149,6 @@ function AddWish() {
                     )
                   }
                 >
-
                   <span className="occasion-icon">
                     <MdCake />
                   </span>
@@ -966,13 +1156,13 @@ function AddWish() {
                   <span>
                     Birthday
                   </span>
-
                 </button>
 
                 <button
                   type="button"
                   className={
-                    occasion === "Anniversary"
+                    occasion ===
+                    "Anniversary"
                       ? "occasion-option active"
                       : "occasion-option"
                   }
@@ -982,7 +1172,6 @@ function AddWish() {
                     )
                   }
                 >
-
                   <span className="occasion-icon">
                     <MdFavorite />
                   </span>
@@ -990,21 +1179,22 @@ function AddWish() {
                   <span>
                     Anniversary
                   </span>
-
                 </button>
 
                 <button
                   type="button"
                   className={
-                    occasion === "Other"
+                    occasion ===
+                    "Other"
                       ? "occasion-option active"
                       : "occasion-option"
                   }
                   onClick={() =>
-                    setOccasion("Other")
+                    setOccasion(
+                      "Other"
+                    )
                   }
                 >
-
                   <span className="occasion-icon">
                     <MdCelebration />
                   </span>
@@ -1012,7 +1202,6 @@ function AddWish() {
                   <span>
                     Other
                   </span>
-
                 </button>
 
               </div>
@@ -1032,7 +1221,6 @@ function AddWish() {
               </div>
 
               <div>
-
                 <h2>
                   Schedule
                 </h2>
@@ -1040,7 +1228,6 @@ function AddWish() {
                 <p>
                   Choose when your wish should be sent.
                 </p>
-
               </div>
 
             </div>
@@ -1167,7 +1354,6 @@ function AddWish() {
                           ) => {
 
                             if (!date) {
-
                               return (
                                 <span
                                   key={
@@ -1176,7 +1362,6 @@ function AddWish() {
                                   className="calendar-empty"
                                 />
                               );
-
                             }
 
                             return (
@@ -1194,7 +1379,9 @@ function AddWish() {
                                     ? "selected"
                                     : "",
 
-                                  isToday(date)
+                                  isToday(
+                                    date
+                                  )
                                     ? "today"
                                     : "",
                                 ]
@@ -1202,7 +1389,6 @@ function AddWish() {
                                     Boolean
                                   )
                                   .join(" ")}
-
                                 onClick={() =>
                                   handleDateSelect(
                                     date
@@ -1212,7 +1398,6 @@ function AddWish() {
                                 {date.getDate()}
                               </button>
                             );
-
                           }
                         )}
 
@@ -1262,7 +1447,6 @@ function AddWish() {
                         : "time-field"
                     }
                     onClick={() => {
-
                       setTimePickerOpen(
                         !timePickerOpen
                       );
@@ -1270,7 +1454,6 @@ function AddWish() {
                       setCalendarOpen(
                         false
                       );
-
                     }}
                   >
 
@@ -1331,14 +1514,12 @@ function AddWish() {
                           </button>
 
                           <div className="time-value">
-
                             {String(
                               selectedHour
                             ).padStart(
                               2,
                               "0"
                             )}
-
                           </div>
 
                           <button
@@ -1376,14 +1557,12 @@ function AddWish() {
                           </button>
 
                           <div className="time-value">
-
                             {String(
                               selectedMinute
                             ).padStart(
                               2,
                               "0"
                             )}
-
                           </div>
 
                           <button
@@ -1507,28 +1686,22 @@ function AddWish() {
                                     )
                                   }
                                 >
-
                                   {String(
                                     time.hour
                                   ).padStart(
                                     2,
                                     "0"
                                   )}
-
                                   :
-
                                   {String(
                                     time.minute
                                   ).padStart(
                                     2,
                                     "0"
                                   )}{" "}
-
                                   {time.period}
-
                                 </button>
                               );
-
                             }
                           )}
 
@@ -1780,12 +1953,10 @@ function AddWish() {
                 </span>
 
                 {repeatYearly && (
-
                   <span>
                     <MdRepeat />
                     Every year
                   </span>
-
                 )}
 
               </div>

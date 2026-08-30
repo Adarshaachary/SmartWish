@@ -1,227 +1,265 @@
 import { useState } from "react";
-import type { FormEvent } from "react";
-import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import {
-  FiArrowRight,
-  FiEye,
-  FiEyeOff,
-  FiLock,
-  FiMail,
-  FiSend,
-  FiShield,
-  FiStar,
-} from "react-icons/fi";
+  MdAutoAwesome,
+  MdMail,
+  MdLock,
+  MdLogin,
+  MdCheckCircle,
+  MdArrowForward,
+  MdSecurity,
+} from "react-icons/md";
 import "./Login.css";
-
-/* =========================================================
-   API
-========================================================= */
-
-const API_URL =
-  "https://smartwish-6n3e.onrender.com/api";
-
-/* =========================================================
-   LOGIN RESPONSE
-========================================================= */
-
-interface LoginResponse {
-  success: boolean;
-  message: string;
-
-  token?: string;
-
-  user?: {
-    id: number;
-    name: string;
-    email: string;
-  };
-}
-
-/* =========================================================
-   LOGIN
-========================================================= */
 
 function Login() {
   const navigate = useNavigate();
 
-  /* =======================================================
-     STATE
-  ======================================================= */
-
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [showPassword, setShowPassword] = useState(false);
+
+  const [message, setMessage] = useState("");
+  const [messageType, setMessageType] = useState<
+    "error" | "success" | ""
+  >("");
+
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
-  const [success, setSuccess] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
 
-  /* =======================================================
-     LOGIN SUBMIT
-  ======================================================= */
+  const handleLogin = async () => {
+    setMessage("");
+    setMessageType("");
 
-  const handleSubmit = async (
-    event: FormEvent<HTMLFormElement>
-  ) => {
-    event.preventDefault();
+    // ==================================================
+    // VALIDATION
+    // ==================================================
 
-    setError("");
-    setSuccess("");
+    if (!email.trim() || !password) {
+      setMessage("Please enter your email and password.");
+      setMessageType("error");
+      return;
+    }
 
-    /* =====================================================
-       VALIDATION
-    ===================================================== */
-
-    if (!email.trim() || !password.trim()) {
-      setError(
-        "Please enter your email and password."
-      );
-
+    if (!email.includes("@")) {
+      setMessage("Please enter a valid email address.");
+      setMessageType("error");
       return;
     }
 
     try {
       setLoading(true);
 
-      /* ===================================================
-         API REQUEST
-      =================================================== */
+      // ==================================================
+      // LOGIN REQUEST
+      // ==================================================
 
-      const response =
-        await axios.post<LoginResponse>(
-          `${API_URL}/auth/login`,
-          {
-            email: email.trim(),
+      const response = await fetch(
+        "http://localhost:5000/api/auth/login",
+        {
+          method: "POST",
+
+          headers: {
+            "Content-Type": "application/json",
+          },
+
+          body: JSON.stringify({
+            email: email.trim().toLowerCase(),
             password,
-          }
-        );
-
-      console.log(
-        "Login response:",
-        response.data
+          }),
+        }
       );
 
-      /* ===================================================
-         SUCCESS
-      =================================================== */
+      // ==================================================
+      // READ RESPONSE
+      // ==================================================
 
-      if (
-        response.data.success &&
-        response.data.token
-      ) {
-        /* ================================================
-           TOKEN
-        ================================================ */
+      const data = await response.json();
+
+      console.log("================================");
+      console.log("LOGIN RESPONSE");
+      console.log(data);
+      console.log("================================");
+
+      // ==================================================
+      // BACKEND ERROR
+      // ==================================================
+
+      if (!response.ok) {
+        setMessage(
+          data?.message || "Invalid email or password."
+        );
+
+        setMessageType("error");
+        return;
+      }
+
+      // ==================================================
+      // GET JWT TOKEN
+      // ==================================================
+
+      const token =
+        data?.token ||
+        data?.accessToken ||
+        data?.jwt ||
+        data?.data?.token;
+
+      console.log(
+        "JWT received:",
+        Boolean(token)
+      );
+
+      if (!token) {
+        console.error(
+          "Login successful but no JWT was returned:",
+          data
+        );
+
+        setMessage(
+          "Login successful, but authentication token was not received."
+        );
+
+        setMessageType("error");
+        return;
+      }
+
+      // ==================================================
+      // GET USER
+      // ==================================================
+
+      const user =
+        data?.user ||
+        data?.data?.user ||
+        null;
+
+      // ==================================================
+      // CLEAR OLD AUTH DATA
+      // ==================================================
+
+      localStorage.removeItem("smartwish_token");
+      localStorage.removeItem("smartwish_user");
+      localStorage.removeItem("token");
+      localStorage.removeItem("user");
+
+      sessionStorage.removeItem("smartwish_token");
+      sessionStorage.removeItem("smartwish_user");
+      sessionStorage.removeItem("token");
+      sessionStorage.removeItem("user");
+
+      // ==================================================
+      // SAVE JWT
+      // ==================================================
+
+      localStorage.setItem(
+        "smartwish_token",
+        token
+      );
+
+      // Compatibility with existing SmartWish code
+      localStorage.setItem(
+        "token",
+        token
+      );
+
+      // ==================================================
+      // SAVE USER
+      // ==================================================
+
+      if (user) {
+        localStorage.setItem(
+          "smartwish_user",
+          JSON.stringify(user)
+        );
 
         localStorage.setItem(
-          "smartwish_token",
-          response.data.token
-        );
-
-        /* ================================================
-           USER
-        ================================================ */
-
-        if (response.data.user) {
-          localStorage.setItem(
-            "smartwish_user",
-            JSON.stringify(
-              response.data.user
-            )
-          );
-        }
-
-        /* ================================================
-           ALSO KEEP OLD KEYS
-        ================================================ */
-
-        localStorage.setItem(
-          "token",
-          response.data.token
-        );
-
-        if (response.data.user) {
-          localStorage.setItem(
-            "user",
-            JSON.stringify(
-              response.data.user
-            )
-          );
-        }
-
-        /* ================================================
-           SUCCESS MESSAGE
-        ================================================ */
-
-        setSuccess(
-          "Login successful! Redirecting..."
-        );
-
-        /* ================================================
-           DASHBOARD
-        ================================================ */
-
-        setTimeout(() => {
-          navigate(
-            "/dashboard",
-            {
-              replace: true,
-            }
-          );
-        }, 600);
-      } else {
-        setError(
-          response.data.message ||
-          "Invalid email or password."
+          "user",
+          JSON.stringify(user)
         );
       }
-    } catch (error: any) {
+
+      // ==================================================
+      // VERIFY AUTH DATA
+      // ==================================================
+
+      console.log(
+        "================================"
+      );
+      console.log("SMARTWISH AUTH STORAGE");
+      console.log(
+        "smartwish_token:",
+        Boolean(
+          localStorage.getItem(
+            "smartwish_token"
+          )
+        )
+      );
+      console.log(
+        "token:",
+        Boolean(
+          localStorage.getItem("token")
+        )
+      );
+      console.log(
+        "smartwish_user:",
+        localStorage.getItem(
+          "smartwish_user"
+        )
+      );
+      console.log(
+        "================================"
+      );
+
+      // ==================================================
+      // SUCCESS
+      // ==================================================
+
+      setMessage(
+        data?.message || "Login successful."
+      );
+
+      setMessageType("success");
+
+      // ==================================================
+      // GO TO DASHBOARD
+      // ==================================================
+
+      setTimeout(() => {
+        navigate("/dashboard", {
+          replace: true,
+        });
+      }, 500);
+    } catch (error) {
       console.error(
         "Login error:",
         error
       );
 
-      /* ================================================
-         SERVER RESPONSE ERROR
-      ================================================ */
+      setMessage(
+        "Unable to connect to the server. Please make sure the SmartWish backend is running."
+      );
 
-      if (
-        error?.response?.data?.message
-      ) {
-        setError(
-          error.response.data.message
-        );
-      }
-
-      /* ================================================
-         SERVER NOT AVAILABLE
-      ================================================ */
-
-      else if (
-        error?.request
-      ) {
-        setError(
-          "Unable to connect to the server. Please make sure the backend is running."
-        );
-      }
-
-      /* ================================================
-         OTHER ERROR
-      ================================================ */
-
-      else {
-        setError(
-          "Something went wrong. Please try again."
-        );
-      }
+      setMessageType("error");
     } finally {
       setLoading(false);
     }
   };
 
-  /* =======================================================
-     UI
-  ======================================================= */
+  // ==================================================
+  // ENTER KEY
+  // ==================================================
+
+  const handleKeyDown = (
+    event: React.KeyboardEvent<HTMLInputElement>
+  ) => {
+    if (
+      event.key === "Enter" &&
+      !loading
+    ) {
+      handleLogin();
+    }
+  };
+
+  // ==================================================
+  // UI
+  // ==================================================
 
   return (
     <div className="login-page">
@@ -235,277 +273,196 @@ function Login() {
         {/* BACKGROUND */}
 
         <div className="login-brand-background">
-
-          <div className="login-orb login-orb-one" />
-
-          <div className="login-orb login-orb-two" />
-
-          <div className="login-orb login-orb-three" />
-
+          <div className="login-orb login-orb-one"></div>
+          <div className="login-orb login-orb-two"></div>
+          <div className="login-orb login-orb-three"></div>
         </div>
 
         {/* BRAND CONTENT */}
 
         <div className="login-brand-content">
 
-          {/* =================================================
-              LOGO
-          ================================================= */}
+          {/* LOGO */}
 
           <div className="login-logo">
-
             <div className="login-logo-icon">
-
-              <FiSend />
-
+              <MdAutoAwesome />
             </div>
 
-            <span>
-              SmartWish
-            </span>
-
+            <span>SmartWish</span>
           </div>
 
-          {/* =================================================
-              BRAND COPY
-          ================================================= */}
+          {/* BRAND COPY */}
 
           <div className="login-brand-copy">
 
             <div className="login-small-badge">
-
-              <FiStar />
-
-              <span>
-                Smart wishes. Perfect timing.
-              </span>
-
+              <MdAutoAwesome />
+              <span>Make every moment special</span>
             </div>
 
             <h1>
-
               Never miss a
-
-              <span>
-                {" "}special moment.
-              </span>
-
+              <span>special moment.</span>
             </h1>
 
             <p>
-
-              Schedule beautiful wishes for
-              birthdays, anniversaries and
-              every occasion that matters to you.
-
+              SmartWish helps you schedule beautiful
+              messages for birthdays, anniversaries,
+              and every occasion that matters.
             </p>
 
-          </div>
+            {/* FEATURES */}
 
-          {/* =================================================
-              FEATURES
-          ================================================= */}
+            <div className="login-features">
 
-          <div className="login-features">
+              <div className="login-feature">
+                <div className="login-feature-icon">
+                  <MdScheduleIcon />
+                </div>
 
-            {/* FEATURE 1 */}
-
-            <div className="login-feature">
-
-              <div className="login-feature-icon">
-
-                <FiSend />
-
+                <div>
+                  <strong>Schedule ahead</strong>
+                  <span>
+                    Set the perfect date and time.
+                  </span>
+                </div>
               </div>
 
-              <div>
+              <div className="login-feature">
+                <div className="login-feature-icon">
+                  <MdAutoAwesome />
+                </div>
 
-                <strong>
-                  Automatic Wishes
-                </strong>
-
-                <span>
-                  Your wishes are sent at the
-                  perfect time.
-                </span>
-
+                <div>
+                  <strong>Beautiful wishes</strong>
+                  <span>
+                    Send meaningful messages automatically.
+                  </span>
+                </div>
               </div>
 
-            </div>
+              <div className="login-feature">
+                <div className="login-feature-icon">
+                  <MdCheckCircle />
+                </div>
 
-            {/* FEATURE 2 */}
-
-            <div className="login-feature">
-
-              <div className="login-feature-icon">
-
-                <FiShield />
-
-              </div>
-
-              <div>
-
-                <strong>
-                  Secure & Private
-                </strong>
-
-                <span>
-                  Your personal information
-                  stays protected.
-                </span>
-
+                <div>
+                  <strong>Never forget</strong>
+                  <span>
+                    SmartWish remembers for you.
+                  </span>
+                </div>
               </div>
 
             </div>
 
           </div>
 
-          {/* =================================================
-              FOOTER
-          ================================================= */}
+          {/* FOOTER */}
 
           <div className="login-brand-footer">
-
-            Make every moment memorable.
-
+            © 2026 SmartWish. Make every wish count.
           </div>
 
         </div>
-
       </section>
 
       {/* ==================================================
-          RIGHT LOGIN SECTION
+          RIGHT FORM SECTION
       ================================================== */}
 
       <section className="login-form-section">
 
         <div className="login-form-wrapper">
 
-          {/* =================================================
-              MOBILE LOGO
-          ================================================= */}
+          {/* MOBILE LOGO */}
 
           <div className="login-mobile-logo">
 
             <div className="login-logo-icon">
-
-              <FiSend />
-
+              <MdAutoAwesome />
             </div>
 
-            <span>
-              SmartWish
-            </span>
+            <span>SmartWish</span>
 
           </div>
 
-          {/* =================================================
-              HEADER
-          ================================================= */}
+          {/* HEADER */}
 
           <div className="login-header">
 
             <div className="login-header-icon">
-
-              <FiMail />
-
+              <MdLogin />
             </div>
 
             <p className="login-eyebrow">
-
-              Welcome back
-
+              WELCOME BACK
             </p>
 
             <h2>
-
-              Sign in to
-
-              <span>
-                {" "}SmartWish
-              </span>
-
+              Login to{" "}
+              <span>SmartWish</span>
             </h2>
 
             <p className="login-description">
-
-              Continue managing your scheduled
-              wishes and special moments.
-
+              Login to continue scheduling beautiful
+              wishes for the people who matter.
             </p>
 
           </div>
 
-          {/* =================================================
-              FORM
-          ================================================= */}
+          {/* FORM */}
 
-          <form
-            className="login-form"
-            onSubmit={handleSubmit}
-          >
+          <div className="login-form">
 
-            {/* =================================================
-                EMAIL
-            ================================================= */}
+            {/* EMAIL */}
 
             <div className="login-field">
 
-              <label htmlFor="email">
-
+              <label htmlFor="login-email">
                 Email Address
-
               </label>
 
               <div className="login-input-wrapper">
 
-                <FiMail
-                  className="login-input-icon"
-                />
+                <MdMail className="login-input-icon" />
 
                 <input
-                  id="email"
+                  id="login-email"
                   type="email"
-                  placeholder="Enter your email address"
+                  placeholder="you@example.com"
                   value={email}
                   onChange={(event) =>
                     setEmail(
                       event.target.value
                     )
                   }
-                  autoComplete="email"
+                  onKeyDown={handleKeyDown}
                   disabled={loading}
+                  autoComplete="email"
                 />
 
               </div>
 
             </div>
 
-            {/* =================================================
-                PASSWORD
-            ================================================= */}
+            {/* PASSWORD */}
 
             <div className="login-field">
 
               <div className="login-label-row">
-
-                <label htmlFor="password">
-
+                <label htmlFor="login-password">
                   Password
-
                 </label>
-
               </div>
 
               <div className="login-input-wrapper">
 
-                <FiLock
-                  className="login-input-icon"
-                />
+                <MdLock className="login-input-icon" />
 
                 <input
-                  id="password"
+                  id="login-password"
                   type={
                     showPassword
                       ? "text"
@@ -518,155 +475,100 @@ function Login() {
                       event.target.value
                     )
                   }
-                  autoComplete="current-password"
+                  onKeyDown={handleKeyDown}
                   disabled={loading}
+                  autoComplete="current-password"
                 />
-
-                {/* SHOW / HIDE */}
 
                 <button
                   type="button"
                   className="login-password-toggle"
                   onClick={() =>
                     setShowPassword(
-                      (previous) =>
-                        !previous
+                      !showPassword
                     )
                   }
+                  disabled={loading}
                   aria-label={
                     showPassword
                       ? "Hide password"
                       : "Show password"
                   }
-                  disabled={loading}
                 >
-
-                  {showPassword ? (
-                    <FiEyeOff />
-                  ) : (
-                    <FiEye />
-                  )}
-
+                  {showPassword ? "◉" : "○"}
                 </button>
 
               </div>
 
             </div>
 
-            {/* =================================================
-                ERROR
-            ================================================= */}
+            {/* MESSAGE */}
 
-            {error && (
-
-              <div className="login-message login-error">
-
-                <span className="login-message-icon">
-                  !
-                </span>
-
-                <span>
-                  {error}
-                </span>
-
-              </div>
-
-            )}
-
-            {/* =================================================
-                SUCCESS
-            ================================================= */}
-
-            {success && (
-
-              <div className="login-message login-success">
+            {message && (
+              <div
+                className={`login-message ${
+                  messageType === "success"
+                    ? "login-success"
+                    : "login-error"
+                }`}
+              >
 
                 <span className="login-message-icon">
-                  ✓
+                  {messageType === "success"
+                    ? "✓"
+                    : "!"}
                 </span>
 
-                <span>
-                  {success}
-                </span>
+                <span>{message}</span>
 
               </div>
-
             )}
 
-            {/* =================================================
-                LOGIN BUTTON
-            ================================================= */}
+            {/* SUBMIT */}
 
             <button
-              type="submit"
+              type="button"
               className="login-submit-button"
+              onClick={handleLogin}
               disabled={loading}
             >
 
               {loading ? (
-
                 <>
-
-                  <span className="login-spinner" />
-
-                  <span>
-                    Signing in...
-                  </span>
-
+                  <span className="login-spinner"></span>
+                  Logging in...
                 </>
-
               ) : (
-
                 <>
-
-                  <span>
-                    Sign In
-                  </span>
-
-                  <FiArrowRight />
-
+                  <MdLogin />
+                  Login
                 </>
-
               )}
 
             </button>
 
-          </form>
+          </div>
 
-          {/* =================================================
-              REGISTER
-          ================================================= */}
+          {/* REGISTER */}
 
-          <div className="login-register">
-
+          <p className="login-register">
             <span>
               Don't have an account?
             </span>
 
             <Link to="/register">
-
-              <span>
-                Create Account
-              </span>
-
-              <FiArrowRight />
-
+              Create Account
+              <MdArrowForward />
             </Link>
+          </p>
 
-          </div>
-
-          {/* =================================================
-              SECURITY
-          ================================================= */}
+          {/* SECURITY */}
 
           <div className="login-security">
-
-            <FiShield />
-
+            <MdSecurity />
             <span>
-              Your connection is secure
+              Your account is securely protected.
             </span>
-
           </div>
 
         </div>
@@ -674,6 +576,20 @@ function Login() {
       </section>
 
     </div>
+  );
+}
+
+// Small helper icon so the existing CSS/layout remains unchanged.
+function MdScheduleIcon() {
+  return (
+    <span
+      style={{
+        fontSize: "19px",
+        lineHeight: 1,
+      }}
+    >
+      ◷
+    </span>
   );
 }
 

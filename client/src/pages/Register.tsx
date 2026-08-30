@@ -21,7 +21,6 @@ function Register() {
   // ==================================================
 
   const handleRegister = async () => {
-    // Clear previous message
     setMessage("");
 
     // ------------------------------------------
@@ -42,7 +41,7 @@ function Register() {
       setLoading(true);
 
       // ------------------------------------------
-      // SEND REQUEST TO DEPLOYED BACKEND
+      // SEND REQUEST TO RENDER BACKEND
       // ------------------------------------------
 
       const response = await fetch(
@@ -89,7 +88,7 @@ function Register() {
       console.error("Registration error:", error);
 
       setMessage(
-        "Unable to connect to the server. Please make sure the backend is running."
+        "Unable to connect to the server. Please try again."
       );
     } finally {
       setLoading(false);

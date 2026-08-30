@@ -7,8 +7,13 @@ import {
 import jwt from "jsonwebtoken";
 
 const JWT_SECRET =
-  process.env.JWT_SECRET ||
-  "smartwish_secret_key";
+  process.env.JWT_SECRET;
+
+if (!JWT_SECRET) {
+  throw new Error(
+    "JWT_SECRET is not defined in .env"
+  );
+}
 
 export interface AuthRequest
   extends Request {
@@ -40,7 +45,7 @@ export const authenticateToken = (
     }
 
     const token =
-      authHeader.substring(7);
+      authHeader.substring(7).trim();
 
     if (!token) {
       res.status(401).json({
@@ -51,18 +56,24 @@ export const authenticateToken = (
       return;
     }
 
-    const decoded = jwt.verify(
-      token,
-      JWT_SECRET
-    ) as {
-      id: number;
-      email: string;
-    };
+    const decoded =
+      jwt.verify(
+        token,
+        JWT_SECRET
+      ) as {
+        id: number;
+        email: string;
+      };
 
-    if (!decoded.id || !decoded.email) {
+    if (
+      !decoded ||
+      !decoded.id ||
+      !decoded.email
+    ) {
       res.status(401).json({
         success: false,
-        message: "Invalid authentication token",
+        message:
+          "Invalid authentication token",
       });
 
       return;
@@ -76,7 +87,6 @@ export const authenticateToken = (
     next();
 
   } catch (error) {
-
     console.error(
       "Authentication error:",
       error

@@ -1,119 +1,23 @@
-# ✨ SmartWish
+# SmartWish 🎉
 
-SmartWish is a full-stack automatic wish scheduling web application that helps users schedule personalized wishes for important occasions such as birthdays, anniversaries, and other special moments.
-
-Instead of remembering every important date manually, users can create a wish, select the date and time, and let SmartWish automatically send the message through email.
+SmartWish is a full-stack web application that helps users schedule personalized wishes for birthdays, anniversaries, and other special occasions. Users can choose a recipient, set a date and time, write a custom message, and schedule the wish to be delivered automatically.
 
 ---
 
-## 📸 Screenshots
+## ✨ Features
 
-Here are some screenshots of the SmartWish application.
-
-### 🔐 Login Page
-
-![SmartWish Login](./screenshots/Login.png)
-
-### 📊 Dashboard
-
-![SmartWish Dashboard](./screenshots/Dashboard.png)
-
-### 🎁 Add Wish
-
-![SmartWish Add Wish](./screenshots/Addwish.png)
-
-### 📅 Upcoming Wishes
-
-![SmartWish Upcoming Wishes](./screenshots/Upcoming.png)
-
-### 📧 Email History
-
-![SmartWish Email History](./screenshots/email.png)
-
----
-
-## 🚀 Features
-
-### 🔐 User Authentication
-
-- User registration and login
-- JWT-based authentication
-- Protected application sections
-- Secure authentication token handling
-- Persistent login session
-
-### 🎁 Wish Scheduling
-
-- Add wishes for different occasions
-- Enter recipient name and email
-- Select an occasion
-- Write a personalized message
-- Schedule wishes for a specific date and time
-
-### 🎂 Occasion Support
-
-SmartWish currently supports:
-
-- Birthday
-- Anniversary
-- Other
-
-### 📅 Custom Calendar
-
-- Modern custom calendar interface
-- Previous month navigation
-- Next month navigation
-- Today button
-- Current date highlighting
-- Selected date highlighting
-- Date preview
-
-### ⏰ Custom Time Picker
-
-- 12-hour time format
-- AM/PM selection
-- Hour controls
-- Minute controls
-- Quick time selection
-- Time preview
-- Done button
-
-The calendar and time picker are designed so that only one picker is open at a time.
-
-### 🔁 Yearly Repeat
-
-- Repeat wishes every year
-- Useful for birthdays and anniversaries
-- Automatically keeps the same date for future years
-
-### 💌 Personalized Messages
-
-- Create custom wish messages
-- Character counter
-- Maximum message length
-- Personalized recipient information
-
-### 👀 Live Preview
-
-Users can preview their scheduled wish before submitting it.
-
-The preview includes:
-
-- Recipient name
-- Occasion
-- Occasion icon
-- Message
-- Date
-- Time
-- Yearly repeat status
-
-### 📧 Automatic Email Sending
-
-SmartWish uses the backend email service to automatically send scheduled wishes to recipients.
-
-### 📜 Email History
-
-Users can view previously processed wishes and email-related information from the application.
+- 🔐 User registration and login
+- 🎂 Birthday wish scheduling
+- 💕 Anniversary wish scheduling
+- 🎉 Custom occasion scheduling
+- 📅 Custom event date selection
+- ⏰ Custom wish sending time
+- 💌 Personalized wish messages
+- 🔁 Yearly recurring wishes
+- 📧 Automated email delivery
+- 📋 Email history
+- 📱 Responsive user interface
+- ⚡ Modern and interactive dashboard
 
 ---
 
@@ -124,37 +28,61 @@ Users can view previously processed wishes and email-related information from th
 - React
 - TypeScript
 - Vite
+- CSS
 - React Router
 - React Icons
-- CSS
+- Axios
 
 ### Backend
 
 - Node.js
-- Express
+- Express.js
 - TypeScript
-- JWT
-- Nodemailer
-- node-cron
-
-### Database
-
 - MySQL
+- Nodemailer
+- Node-Cron
+
+### Development Tools
+
+- Git
+- GitHub
+- VS Code
 
 ---
 
-## 🏗️ Project Architecture
-
-SmartWish is divided into three main parts:
+## 🏗️ Project Structure
 
 ```text
-SmartWish
+SmartWish/
 │
-├── Frontend
-│   └── React + TypeScript + Vite
+├── client/
+│   ├── public/
+│   ├── screenshots/
+│   │   ├── Login.png
+│   │   ├── Dashboard.png
+│   │   ├── Addwish.png
+│   │   ├── Upcoming.png
+│   │   └── email.png
+│   │
+│   └── src/
+│       ├── components/
+│       ├── pages/
+│       ├── EmailHistory/
+│       ├── types/
+│       ├── utils/
+│       ├── App.tsx
+│       └── main.tsx
 │
-├── Backend
-│   └── Node.js + Express + TypeScript
+├── server/
+│   └── src/
+│       ├── config/
+│       ├── controllers/
+│       ├── middleware/
+│       ├── models/
+│       ├── routes/
+│       ├── services/
+│       ├── app.ts
+│       ├── scheduler.ts
+│       └── server.ts
 │
-└── Database
-    └── MySQL
+└── README.md

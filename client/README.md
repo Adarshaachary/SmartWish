@@ -1,45 +1,164 @@
-# SmartWish
+# ✨ SmartWish
 
-SmartWish is a full-stack web application that helps users schedule personalized wishes for birthdays, anniversaries, and other special occasions. Users can create a wish, choose the recipient, select the date and time, write a personalized message, and optionally repeat the wish every year.
-
-## Live Demo
-
-https://adarshaachary.github.io/SmartWish/
-
-> Note: The frontend is currently hosted on GitHub Pages, while the backend runs locally during development. Therefore, features that require the backend, such as login, registration, wish scheduling, and automated email delivery, require the backend server to be running locally.
-
-## GitHub Repository
-
-https://github.com/Adarshaachary/SmartWish
+> A full-stack automatic wish scheduling application that allows users to create, schedule, and automatically send personalized wishes for birthdays, anniversaries, and other special occasions.
 
 ---
 
-## Features
+## 📸 Application Preview
 
-- User registration and login
-- Secure authentication using JWT
-- Personalized wish creation
-- Birthday, Anniversary, and Other occasion options
-- Recipient name and email management
-- Custom date picker
-- Custom 12-hour AM/PM time picker
+### 🔐 Login Page
+
+<p align="center">
+  <img src="./screenshots/login.png" alt="SmartWish Login Page" width="900"/>
+</p>
+
+---
+
+### 📝 Register Page
+
+<p align="center">
+  <img src="./screenshots/register.png" alt="SmartWish Register Page" width="900"/>
+</p>
+
+---
+
+### 🏠 Dashboard
+
+<p align="center">
+  <img src="./screenshots/dashboard.png" alt="SmartWish Dashboard" width="900"/>
+</p>
+
+---
+
+### ✨ Create a Wish
+
+<p align="center">
+  <img src="./screenshots/add-wish.png" alt="SmartWish Add Wish Page" width="900"/>
+</p>
+
+---
+
+### 📱 Mobile Responsive Design
+
+<p align="center">
+  <img src="./screenshots/mobile.png" alt="SmartWish Mobile Responsive Design" width="400"/>
+</p>
+
+---
+
+## 📌 About the Project
+
+**SmartWish** is a full-stack web application designed to make sending special wishes easier.
+
+Instead of remembering someone's birthday or anniversary and manually sending a message, users can schedule a personalized wish in advance.
+
+Users can:
+
+- Create an account
+- Login securely
+- Create personalized wishes
+- Select a recipient
+- Select an occasion
+- Choose a date
+- Choose a specific time
+- Schedule wishes for future delivery
+- Repeat wishes every year
+- Preview the wish before scheduling
+- Automatically send scheduled wishes through email
+
+---
+
+# 🚀 Features
+
+## 🔐 Authentication
+
+- User registration
+- User login
+- JWT-based authentication
+- Protected routes
+- Authentication middleware
+- Secure token handling
+
+## 🎉 Wish Scheduling
+
+Users can schedule a wish using:
+
+- Recipient name
+- Recipient email
+- Occasion
+- Event date
+- Send time
+- Personalized message
+
+Supported occasions:
+
+- 🎂 Birthday
+- ❤️ Anniversary
+- 🎉 Other
+
+## 📅 Custom Calendar
+
+The application includes a custom calendar with:
+
+- Previous/next month navigation
+- Current date highlighting
+- Selected date highlighting
+- Today button
+- Modern calendar interface
+
+## ⏰ Custom Time Picker
+
+The application provides a custom 12-hour time picker with:
+
+- Hour selection
+- Minute selection
+- AM/PM selection
 - Quick time selection
-- Schedule preview
-- Live wish message preview
-- Character count for messages
-- Yearly repeat option
-- Upcoming events management
-- Email history
-- Automated email delivery
-- Scheduled email processing using Node-Cron
-- Email delivery using Nodemailer and Gmail
-- Protected API routes
-- Responsive frontend interface
-- Modern dashboard interface
+- Time preview
+
+## 🔁 Yearly Repeat
+
+Users can enable:
+
+**Repeat every year**
+
+This allows the wish to be automatically scheduled every year on the selected date.
+
+## 💌 Live Message Preview
+
+Users can preview their wish before scheduling.
+
+The preview dynamically displays:
+
+- Recipient name
+- Occasion
+- Message
+- Event date
+- Send time
+- Yearly repeat status
+
+## 📧 Automatic Email Delivery
+
+Scheduled wishes are processed by the backend scheduler and sent automatically through email.
+
+Technologies used:
+
+- Nodemailer
+- Gmail SMTP
+- Node Cron
+
+## 📱 Responsive Design
+
+SmartWish is designed to work on:
+
+- 💻 Desktop
+- 💻 Laptop
+- 📱 Mobile
+- 📲 Tablet
 
 ---
 
-## Tech Stack
+# 🛠️ Tech Stack
 
 ### Frontend
 
@@ -53,71 +172,64 @@ https://github.com/Adarshaachary/SmartWish
 ### Backend
 
 - Node.js
-- Express
+- Express.js
 - TypeScript
 - JWT
-- bcryptjs
-- Node-Cron
 - Nodemailer
+- Node Cron
 
 ### Database
 
 - MySQL
-- mysql2
 
-### Development & Deployment
+### Tools
 
+- VS Code
 - Git
 - GitHub
-- GitHub Pages
 - npm
 
 ---
 
-## Project Structure
+# 🏗️ Project Structure
 
 ```text
 SmartWish/
 │
 ├── client/
-│   ├── public/
 │   ├── src/
 │   │   ├── components/
-│   │   │   ├── Navbar/
-│   │   │   ├── Sidebar/
-│   │   │   ├── StatsCards/
-│   │   │   ├── UpcomingEvents/
-│   │   │   └── Welcome/
-│   │   │
-│   │   ├── EmailHistory/
 │   │   ├── pages/
-│   │   │   ├── AddWish.tsx
-│   │   │   ├── Dashboard.tsx
-│   │   │   ├── Home.tsx
 │   │   │   ├── Login.tsx
+│   │   │   ├── Login.css
 │   │   │   ├── Register.tsx
-│   │   │   ├── UpcomingEvents.tsx
-│   │   │   └── UpdateAccount.tsx
+│   │   │   ├── AddWish.tsx
+│   │   │   └── ...
 │   │   │
-│   │   ├── types/
-│   │   ├── utils/
 │   │   ├── App.tsx
 │   │   └── main.tsx
 │   │
-│   └── package.json
+│   ├── package.json
+│   └── ...
 │
 ├── server/
 │   ├── src/
-│   │   ├── config/
 │   │   ├── controllers/
 │   │   ├── middleware/
-│   │   ├── models/
 │   │   ├── routes/
 │   │   ├── services/
 │   │   ├── app.ts
-│   │   ├── scheduler.ts
 │   │   └── server.ts
 │   │
-│   └── package.json
+│   ├── package.json
+│   └── ...
 │
+├── screenshots/
+│   ├── login.png
+│   ├── register.png
+│   ├── dashboard.png
+│   ├── add-wish.png
+│   └── mobile.png
+│
+├── .gitignore
 └── README.md

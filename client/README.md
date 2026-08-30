@@ -4,6 +4,31 @@ SmartWish is a full-stack web application that helps users schedule personalized
 
 ---
 
+---
+
+## 📸 Screenshots
+
+### 🔐 Login
+
+![SmartWish Login](./screenshots/Login.png)
+
+### 📊 Dashboard
+
+![SmartWish Dashboard](./screenshots/Dashboard.png)
+
+### 🎁 Add Wish
+
+![SmartWish Add Wish](./screenshots/Addwish.png)
+
+### 📅 Upcoming Wishes
+
+![SmartWish Upcoming Wishes](./screenshots/Upcoming.png)
+
+### 📧 Email History
+
+![SmartWish Email History](./screenshots/email.png)
+
+---
 ## ✨ Features
 
 - 🔐 User registration and login
@@ -86,3 +111,5 @@ SmartWish/
 │       └── server.ts
 │
 └── README.md
+
+

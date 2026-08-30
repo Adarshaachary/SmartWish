@@ -1,16 +1,7 @@
-import {
-  useState,
-} from "react";
-
+import { useState } from "react";
 import type { FormEvent } from "react";
-
 import axios from "axios";
-
-import {
-  Link,
-  useNavigate,
-} from "react-router-dom";
-
+import { Link, useNavigate } from "react-router-dom";
 import {
   FiArrowRight,
   FiEye,
@@ -21,17 +12,14 @@ import {
   FiShield,
   FiStar,
 } from "react-icons/fi";
-
 import "./Login.css";
-
 
 /* =========================================================
    API
 ========================================================= */
 
 const API_URL =
-  "http://192.168.1.5:5000/api";
-
+  "https://smartwish-6n3e.onrender.com/api";
 
 /* =========================================================
    LOGIN RESPONSE
@@ -50,39 +38,23 @@ interface LoginResponse {
   };
 }
 
-
 /* =========================================================
    LOGIN
 ========================================================= */
 
 function Login() {
-
-  const navigate =
-    useNavigate();
-
+  const navigate = useNavigate();
 
   /* =======================================================
      STATE
   ======================================================= */
 
-  const [email, setEmail] =
-    useState("");
-
-  const [password, setPassword] =
-    useState("");
-
-  const [showPassword, setShowPassword] =
-    useState(false);
-
-  const [loading, setLoading] =
-    useState(false);
-
-  const [error, setError] =
-    useState("");
-
-  const [success, setSuccess] =
-    useState("");
-
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
 
   /* =======================================================
      LOGIN SUBMIT
@@ -91,22 +63,16 @@ function Login() {
   const handleSubmit = async (
     event: FormEvent<HTMLFormElement>
   ) => {
-
     event.preventDefault();
 
     setError("");
     setSuccess("");
 
-
     /* =====================================================
        VALIDATION
     ===================================================== */
 
-    if (
-      !email.trim() ||
-      !password.trim()
-    ) {
-
+    if (!email.trim() || !password.trim()) {
       setError(
         "Please enter your email and password."
       );
@@ -114,11 +80,8 @@ function Login() {
       return;
     }
 
-
     try {
-
       setLoading(true);
-
 
       /* ===================================================
          API REQUEST
@@ -128,19 +91,15 @@ function Login() {
         await axios.post<LoginResponse>(
           `${API_URL}/auth/login`,
           {
-            email:
-              email.trim(),
-
+            email: email.trim(),
             password,
           }
         );
-
 
       console.log(
         "Login response:",
         response.data
       );
-
 
       /* ===================================================
          SUCCESS
@@ -150,8 +109,6 @@ function Login() {
         response.data.success &&
         response.data.token
       ) {
-
-
         /* ================================================
            TOKEN
         ================================================ */
@@ -161,24 +118,18 @@ function Login() {
           response.data.token
         );
 
-
         /* ================================================
            USER
         ================================================ */
 
-        if (
-          response.data.user
-        ) {
-
+        if (response.data.user) {
           localStorage.setItem(
             "smartwish_user",
             JSON.stringify(
               response.data.user
             )
           );
-
         }
-
 
         /* ================================================
            ALSO KEEP OLD KEYS
@@ -189,20 +140,14 @@ function Login() {
           response.data.token
         );
 
-
-        if (
-          response.data.user
-        ) {
-
+        if (response.data.user) {
           localStorage.setItem(
             "user",
             JSON.stringify(
               response.data.user
             )
           );
-
         }
-
 
         /* ================================================
            SUCCESS MESSAGE
@@ -212,40 +157,29 @@ function Login() {
           "Login successful! Redirecting..."
         );
 
-
         /* ================================================
            DASHBOARD
         ================================================ */
 
         setTimeout(() => {
-
           navigate(
             "/dashboard",
             {
               replace: true,
             }
           );
-
         }, 600);
-
       } else {
-
         setError(
           response.data.message ||
           "Invalid email or password."
         );
-
       }
-
-    } catch (
-      error: any
-    ) {
-
+    } catch (error: any) {
       console.error(
         "Login error:",
         error
       );
-
 
       /* ================================================
          SERVER RESPONSE ERROR
@@ -254,13 +188,10 @@ function Login() {
       if (
         error?.response?.data?.message
       ) {
-
         setError(
           error.response.data.message
         );
-
       }
-
 
       /* ================================================
          SERVER NOT AVAILABLE
@@ -269,43 +200,31 @@ function Login() {
       else if (
         error?.request
       ) {
-
         setError(
           "Unable to connect to the server. Please make sure the backend is running."
         );
-
       }
-
 
       /* ================================================
          OTHER ERROR
       ================================================ */
 
       else {
-
         setError(
           "Something went wrong. Please try again."
         );
-
       }
-
     } finally {
-
       setLoading(false);
-
     }
-
   };
-
 
   /* =======================================================
      UI
   ======================================================= */
 
   return (
-
     <div className="login-page">
-
 
       {/* ==================================================
           LEFT BRAND SECTION
@@ -325,11 +244,9 @@ function Login() {
 
         </div>
 
-
         {/* BRAND CONTENT */}
 
         <div className="login-brand-content">
-
 
           {/* =================================================
               LOGO
@@ -349,13 +266,11 @@ function Login() {
 
           </div>
 
-
           {/* =================================================
               BRAND COPY
           ================================================= */}
 
           <div className="login-brand-copy">
-
 
             <div className="login-small-badge">
 
@@ -367,7 +282,6 @@ function Login() {
 
             </div>
 
-
             <h1>
 
               Never miss a
@@ -377,7 +291,6 @@ function Login() {
               </span>
 
             </h1>
-
 
             <p>
 
@@ -389,13 +302,11 @@ function Login() {
 
           </div>
 
-
           {/* =================================================
               FEATURES
           ================================================= */}
 
           <div className="login-features">
-
 
             {/* FEATURE 1 */}
 
@@ -406,7 +317,6 @@ function Login() {
                 <FiSend />
 
               </div>
-
 
               <div>
 
@@ -423,7 +333,6 @@ function Login() {
 
             </div>
 
-
             {/* FEATURE 2 */}
 
             <div className="login-feature">
@@ -433,7 +342,6 @@ function Login() {
                 <FiShield />
 
               </div>
-
 
               <div>
 
@@ -452,7 +360,6 @@ function Login() {
 
           </div>
 
-
           {/* =================================================
               FOOTER
           ================================================= */}
@@ -467,16 +374,13 @@ function Login() {
 
       </section>
 
-
       {/* ==================================================
           RIGHT LOGIN SECTION
       ================================================== */}
 
       <section className="login-form-section">
 
-
         <div className="login-form-wrapper">
-
 
           {/* =================================================
               MOBILE LOGO
@@ -496,13 +400,11 @@ function Login() {
 
           </div>
 
-
           {/* =================================================
               HEADER
           ================================================= */}
 
           <div className="login-header">
-
 
             <div className="login-header-icon">
 
@@ -510,13 +412,11 @@ function Login() {
 
             </div>
 
-
             <p className="login-eyebrow">
 
               Welcome back
 
             </p>
-
 
             <h2>
 
@@ -528,7 +428,6 @@ function Login() {
 
             </h2>
 
-
             <p className="login-description">
 
               Continue managing your scheduled
@@ -538,7 +437,6 @@ function Login() {
 
           </div>
 
-
           {/* =================================================
               FORM
           ================================================= */}
@@ -547,7 +445,6 @@ function Login() {
             className="login-form"
             onSubmit={handleSubmit}
           >
-
 
             {/* =================================================
                 EMAIL
@@ -561,13 +458,11 @@ function Login() {
 
               </label>
 
-
               <div className="login-input-wrapper">
 
                 <FiMail
                   className="login-input-icon"
                 />
-
 
                 <input
                   id="email"
@@ -587,13 +482,11 @@ function Login() {
 
             </div>
 
-
             {/* =================================================
                 PASSWORD
             ================================================= */}
 
             <div className="login-field">
-
 
               <div className="login-label-row">
 
@@ -605,13 +498,11 @@ function Login() {
 
               </div>
 
-
               <div className="login-input-wrapper">
 
                 <FiLock
                   className="login-input-icon"
                 />
-
 
                 <input
                   id="password"
@@ -630,7 +521,6 @@ function Login() {
                   autoComplete="current-password"
                   disabled={loading}
                 />
-
 
                 {/* SHOW / HIDE */}
 
@@ -663,7 +553,6 @@ function Login() {
 
             </div>
 
-
             {/* =================================================
                 ERROR
             ================================================= */}
@@ -684,7 +573,6 @@ function Login() {
 
             )}
 
-
             {/* =================================================
                 SUCCESS
             ================================================= */}
@@ -704,7 +592,6 @@ function Login() {
               </div>
 
             )}
-
 
             {/* =================================================
                 LOGIN BUTTON
@@ -746,7 +633,6 @@ function Login() {
 
           </form>
 
-
           {/* =================================================
               REGISTER
           ================================================= */}
@@ -756,7 +642,6 @@ function Login() {
             <span>
               Don't have an account?
             </span>
-
 
             <Link to="/register">
 
@@ -769,7 +654,6 @@ function Login() {
             </Link>
 
           </div>
-
 
           {/* =================================================
               SECURITY
@@ -790,10 +674,7 @@ function Login() {
       </section>
 
     </div>
-
   );
-
 }
-
 
 export default Login;

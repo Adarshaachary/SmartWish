@@ -42,11 +42,11 @@ function Register() {
       setLoading(true);
 
       // ------------------------------------------
-      // SEND REQUEST TO BACKEND
+      // SEND REQUEST TO DEPLOYED BACKEND
       // ------------------------------------------
 
       const response = await fetch(
-        "http://localhost:5000/api/auth/register",
+        "https://smartwish-6n3e.onrender.com/api/auth/register",
         {
           method: "POST",
 

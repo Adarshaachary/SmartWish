@@ -3,12 +3,9 @@ import {
   useRef,
   useState,
 } from "react";
-
 import type { FormEvent } from "react";
-
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-
 import {
   MdCake,
   MdFavorite,
@@ -29,8 +26,14 @@ import {
   MdKeyboardArrowUp,
   MdKeyboardArrowDown,
 } from "react-icons/md";
-
 import "./AddWish.css";
+
+/* =========================================
+   API BASE URL
+========================================= */
+
+const API_BASE_URL =
+  import.meta.env.VITE_API_URL || "http://localhost:5000";
 
 function AddWish() {
   const navigate = useNavigate();
@@ -46,6 +49,7 @@ function AddWish() {
   const [eventTime, setEventTime] = useState("09:00");
   const [message, setMessage] = useState("");
   const [repeatYearly, setRepeatYearly] = useState(false);
+
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState("");
   const [error, setError] = useState("");
@@ -272,6 +276,10 @@ function AddWish() {
     try {
       setLoading(true);
 
+      /* =====================================
+         AUTH TOKEN
+      ===================================== */
+
       const token = getAuthToken();
 
       if (!token) {
@@ -294,7 +302,7 @@ function AddWish() {
       ===================================== */
 
       const response = await axios.post(
-        "http://localhost:5000/api/events",
+        `${API_BASE_URL}/api/events`,
         {
           senderName,
           personName: personName.trim(),
@@ -307,10 +315,8 @@ function AddWish() {
         },
         {
           headers: {
-            Authorization:
-              `Bearer ${token}`,
-            "Content-Type":
-              "application/json",
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
           },
         }
       );
@@ -356,7 +362,6 @@ function AddWish() {
 
       setCalendarOpen(false);
       setTimePickerOpen(false);
-
     } catch (err: any) {
       console.error(
         "Create wish error:",
@@ -762,7 +767,6 @@ function AddWish() {
       {/* BACKGROUND */}
 
       <div className="addwish-orb addwish-orb-one"></div>
-
       <div className="addwish-orb addwish-orb-two"></div>
 
       {/* MAIN */}
@@ -1163,6 +1167,7 @@ function AddWish() {
                           ) => {
 
                             if (!date) {
+
                               return (
                                 <span
                                   key={
@@ -1171,6 +1176,7 @@ function AddWish() {
                                   className="calendar-empty"
                                 />
                               );
+
                             }
 
                             return (
@@ -1196,6 +1202,7 @@ function AddWish() {
                                     Boolean
                                   )
                                   .join(" ")}
+
                                 onClick={() =>
                                   handleDateSelect(
                                     date
@@ -1205,6 +1212,7 @@ function AddWish() {
                                 {date.getDate()}
                               </button>
                             );
+
                           }
                         )}
 
@@ -1226,6 +1234,7 @@ function AddWish() {
                       </div>
 
                     </div>
+
                   )}
 
                 </div>
@@ -1253,6 +1262,7 @@ function AddWish() {
                         : "time-field"
                     }
                     onClick={() => {
+
                       setTimePickerOpen(
                         !timePickerOpen
                       );
@@ -1260,6 +1270,7 @@ function AddWish() {
                       setCalendarOpen(
                         false
                       );
+
                     }}
                   >
 
@@ -1320,12 +1331,14 @@ function AddWish() {
                           </button>
 
                           <div className="time-value">
+
                             {String(
                               selectedHour
                             ).padStart(
                               2,
                               "0"
                             )}
+
                           </div>
 
                           <button
@@ -1363,12 +1376,14 @@ function AddWish() {
                           </button>
 
                           <div className="time-value">
+
                             {String(
                               selectedMinute
                             ).padStart(
                               2,
                               "0"
                             )}
+
                           </div>
 
                           <button
@@ -1492,22 +1507,28 @@ function AddWish() {
                                     )
                                   }
                                 >
+
                                   {String(
                                     time.hour
                                   ).padStart(
                                     2,
                                     "0"
                                   )}
+
                                   :
+
                                   {String(
                                     time.minute
                                   ).padStart(
                                     2,
                                     "0"
                                   )}{" "}
+
                                   {time.period}
+
                                 </button>
                               );
+
                             }
                           )}
 
@@ -1528,6 +1549,7 @@ function AddWish() {
                       </button>
 
                     </div>
+
                   )}
 
                 </div>
@@ -1725,17 +1747,22 @@ function AddWish() {
               </div>
 
               <p className="preview-to">
+
                 To{" "}
+
                 <strong>
                   {personName ||
                     "Someone Special"}
                 </strong>
+
               </p>
 
               <p className="preview-message">
+
                 {message ||
                   "Your beautiful message will appear here..."
                 }
+
               </p>
 
               <div className="preview-line"></div>
@@ -1753,10 +1780,12 @@ function AddWish() {
                 </span>
 
                 {repeatYearly && (
+
                   <span>
                     <MdRepeat />
                     Every year
                   </span>
+
                 )}
 
               </div>

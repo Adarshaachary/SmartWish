@@ -1,164 +1,119 @@
 # ✨ SmartWish
 
-> A full-stack automatic wish scheduling application that allows users to create, schedule, and automatically send personalized wishes for birthdays, anniversaries, and other special occasions.
+SmartWish is a full-stack automatic wish scheduling web application that helps users schedule personalized wishes for important occasions such as birthdays, anniversaries, and other special moments.
+
+Instead of remembering every important date manually, users can create a wish, select the date and time, and let SmartWish automatically send the message through email.
 
 ---
 
-## 📸 Application Preview
+## 📸 Screenshots
 
-### 🔐 Login Page
+### 🔐 Login
 
-<p align="center">
-  <img src="./screenshots/login.png" alt="SmartWish Login Page" width="900"/>
-</p>
+![SmartWish Login](./screenshots/login.png)
 
----
+### 📝 Register
 
-### 📝 Register Page
+![SmartWish Register](./screenshots/register.png)
 
-<p align="center">
-  <img src="./screenshots/register.png" alt="SmartWish Register Page" width="900"/>
-</p>
+### 📊 Dashboard
 
----
+![SmartWish Dashboard](./screenshots/dashboard.png)
 
-### 🏠 Dashboard
+### 🎁 Add Wish
 
-<p align="center">
-  <img src="./screenshots/dashboard.png" alt="SmartWish Dashboard" width="900"/>
-</p>
+![SmartWish Add Wish](./screenshots/add-wish.png)
 
----
+### 📅 Custom Calendar
 
-### ✨ Create a Wish
+![SmartWish Calendar](./screenshots/calendar.png)
 
-<p align="center">
-  <img src="./screenshots/add-wish.png" alt="SmartWish Add Wish Page" width="900"/>
-</p>
+### ⏰ Custom Time Picker
+
+![SmartWish Time Picker](./screenshots/time-picker.png)
+
+### 📧 Email History
+
+![SmartWish Email History](./screenshots/email-history.png)
 
 ---
 
-### 📱 Mobile Responsive Design
+## 🚀 Features
 
-<p align="center">
-  <img src="./screenshots/mobile.png" alt="SmartWish Mobile Responsive Design" width="400"/>
-</p>
-
----
-
-## 📌 About the Project
-
-**SmartWish** is a full-stack web application designed to make sending special wishes easier.
-
-Instead of remembering someone's birthday or anniversary and manually sending a message, users can schedule a personalized wish in advance.
-
-Users can:
-
-- Create an account
-- Login securely
-- Create personalized wishes
-- Select a recipient
-- Select an occasion
-- Choose a date
-- Choose a specific time
-- Schedule wishes for future delivery
-- Repeat wishes every year
-- Preview the wish before scheduling
-- Automatically send scheduled wishes through email
-
----
-
-# 🚀 Features
-
-## 🔐 Authentication
-
-- User registration
-- User login
+### 🔐 User Authentication
+- User registration and login
 - JWT-based authentication
-- Protected routes
-- Authentication middleware
-- Secure token handling
+- Protected application sections
+- Secure authentication token handling
+- Persistent login session
 
-## 🎉 Wish Scheduling
+### 🎁 Wish Scheduling
+- Add wishes for different occasions
+- Enter recipient name and email
+- Select an occasion
+- Write a personalized message
+- Schedule wishes for a specific date and time
 
-Users can schedule a wish using:
+### 🎂 Occasion Support
+SmartWish currently supports:
 
-- Recipient name
-- Recipient email
-- Occasion
-- Event date
-- Send time
-- Personalized message
+- Birthday
+- Anniversary
+- Other
 
-Supported occasions:
-
-- 🎂 Birthday
-- ❤️ Anniversary
-- 🎉 Other
-
-## 📅 Custom Calendar
-
-The application includes a custom calendar with:
-
-- Previous/next month navigation
+### 📅 Custom Calendar
+- Modern custom calendar interface
+- Previous month navigation
+- Next month navigation
+- Today button
 - Current date highlighting
 - Selected date highlighting
-- Today button
-- Modern calendar interface
+- Date preview
 
-## ⏰ Custom Time Picker
-
-The application provides a custom 12-hour time picker with:
-
-- Hour selection
-- Minute selection
+### ⏰ Custom Time Picker
+- 12-hour time format
 - AM/PM selection
+- Hour controls
+- Minute controls
 - Quick time selection
 - Time preview
+- Done button
 
-## 🔁 Yearly Repeat
+The calendar and time picker are designed so that only one picker is open at a time.
 
-Users can enable:
+### 🔁 Yearly Repeat
+- Repeat wishes every year
+- Useful for birthdays and anniversaries
+- Automatically keeps the same date for future years
 
-**Repeat every year**
+### 💌 Personalized Messages
+- Create custom wish messages
+- Character counter
+- Maximum message length
+- Personalized recipient information
 
-This allows the wish to be automatically scheduled every year on the selected date.
+### 👀 Live Preview
+Users can preview their scheduled wish before submitting it.
 
-## 💌 Live Message Preview
-
-Users can preview their wish before scheduling.
-
-The preview dynamically displays:
+The preview includes:
 
 - Recipient name
 - Occasion
+- Occasion icon
 - Message
-- Event date
-- Send time
+- Date
+- Time
 - Yearly repeat status
 
-## 📧 Automatic Email Delivery
+### 📧 Automatic Email Sending
+SmartWish uses the backend email service to automatically send scheduled wishes to recipients.
 
-Scheduled wishes are processed by the backend scheduler and sent automatically through email.
-
-Technologies used:
-
-- Nodemailer
-- Gmail SMTP
-- Node Cron
-
-## 📱 Responsive Design
-
-SmartWish is designed to work on:
-
-- 💻 Desktop
-- 💻 Laptop
-- 📱 Mobile
-- 📲 Tablet
+### 📜 Email History
+Users can view previously processed wishes and email-related information from the application.
 
 ---
 
-# 🛠️ Tech Stack
+## 🛠️ Tech Stack
 
 ### Frontend
 
@@ -172,64 +127,30 @@ SmartWish is designed to work on:
 ### Backend
 
 - Node.js
-- Express.js
+- Express
 - TypeScript
 - JWT
 - Nodemailer
-- Node Cron
+- node-cron
 
 ### Database
 
 - MySQL
 
-### Tools
-
-- VS Code
-- Git
-- GitHub
-- npm
-
 ---
 
-# 🏗️ Project Structure
+## 🏗️ Project Architecture
+
+SmartWish is divided into three main parts:
 
 ```text
-SmartWish/
+SmartWish
 │
-├── client/
-│   ├── src/
-│   │   ├── components/
-│   │   ├── pages/
-│   │   │   ├── Login.tsx
-│   │   │   ├── Login.css
-│   │   │   ├── Register.tsx
-│   │   │   ├── AddWish.tsx
-│   │   │   └── ...
-│   │   │
-│   │   ├── App.tsx
-│   │   └── main.tsx
-│   │
-│   ├── package.json
-│   └── ...
+├── Frontend
+│   └── React + TypeScript + Vite
 │
-├── server/
-│   ├── src/
-│   │   ├── controllers/
-│   │   ├── middleware/
-│   │   ├── routes/
-│   │   ├── services/
-│   │   ├── app.ts
-│   │   └── server.ts
-│   │
-│   ├── package.json
-│   └── ...
+├── Backend
+│   └── Node.js + Express + TypeScript
 │
-├── screenshots/
-│   ├── login.png
-│   ├── register.png
-│   ├── dashboard.png
-│   ├── add-wish.png
-│   └── mobile.png
-│
-├── .gitignore
-└── README.md
+└── Database
+    └── MySQL

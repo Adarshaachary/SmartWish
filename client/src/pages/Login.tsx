@@ -3,11 +3,13 @@ import { Link, useNavigate } from "react-router-dom";
 import {
   MdAutoAwesome,
   MdMail,
-  MdLock,
+  MdLockOutline,
   MdLogin,
   MdCheckCircle,
   MdArrowForward,
   MdSecurity,
+  MdVisibility,
+  MdVisibilityOff,
 } from "react-icons/md";
 import "./Login.css";
 
@@ -459,7 +461,7 @@ function Login() {
 
               <div className="login-input-wrapper">
 
-                <MdLock className="login-input-icon" />
+                <MdLockOutline className="login-input-icon" />
 
                 <input
                   id="login-password"
@@ -495,7 +497,11 @@ function Login() {
                       : "Show password"
                   }
                 >
-                  {showPassword ? "◉" : "○"}
+                  {showPassword ? (
+                    <MdVisibilityOff />
+                  ) : (
+                    <MdVisibility />
+                  )}
                 </button>
 
               </div>

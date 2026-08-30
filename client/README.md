@@ -8,39 +8,34 @@ Instead of remembering every important date manually, users can create a wish, s
 
 ## 📸 Screenshots
 
-### 🔐 Login
+Here are some screenshots of the SmartWish application.
 
-![SmartWish Login](./screenshots/login.png)
+### 🔐 Login Page
 
-### 📝 Register
-
-![SmartWish Register](./screenshots/register.png)
+![SmartWish Login](./screenshots/Login.png)
 
 ### 📊 Dashboard
 
-![SmartWish Dashboard](./screenshots/dashboard.png)
+![SmartWish Dashboard](./screenshots/Dashboard.png)
 
 ### 🎁 Add Wish
 
-![SmartWish Add Wish](./screenshots/add-wish.png)
+![SmartWish Add Wish](./screenshots/Addwish.png)
 
-### 📅 Custom Calendar
+### 📅 Upcoming Wishes
 
-![SmartWish Calendar](./screenshots/calendar.png)
-
-### ⏰ Custom Time Picker
-
-![SmartWish Time Picker](./screenshots/time-picker.png)
+![SmartWish Upcoming Wishes](./screenshots/Upcoming.png)
 
 ### 📧 Email History
 
-![SmartWish Email History](./screenshots/email-history.png)
+![SmartWish Email History](./screenshots/email.png)
 
 ---
 
 ## 🚀 Features
 
 ### 🔐 User Authentication
+
 - User registration and login
 - JWT-based authentication
 - Protected application sections
@@ -48,6 +43,7 @@ Instead of remembering every important date manually, users can create a wish, s
 - Persistent login session
 
 ### 🎁 Wish Scheduling
+
 - Add wishes for different occasions
 - Enter recipient name and email
 - Select an occasion
@@ -55,6 +51,7 @@ Instead of remembering every important date manually, users can create a wish, s
 - Schedule wishes for a specific date and time
 
 ### 🎂 Occasion Support
+
 SmartWish currently supports:
 
 - Birthday
@@ -62,6 +59,7 @@ SmartWish currently supports:
 - Other
 
 ### 📅 Custom Calendar
+
 - Modern custom calendar interface
 - Previous month navigation
 - Next month navigation
@@ -71,6 +69,7 @@ SmartWish currently supports:
 - Date preview
 
 ### ⏰ Custom Time Picker
+
 - 12-hour time format
 - AM/PM selection
 - Hour controls
@@ -82,17 +81,20 @@ SmartWish currently supports:
 The calendar and time picker are designed so that only one picker is open at a time.
 
 ### 🔁 Yearly Repeat
+
 - Repeat wishes every year
 - Useful for birthdays and anniversaries
 - Automatically keeps the same date for future years
 
 ### 💌 Personalized Messages
+
 - Create custom wish messages
 - Character counter
 - Maximum message length
 - Personalized recipient information
 
 ### 👀 Live Preview
+
 Users can preview their scheduled wish before submitting it.
 
 The preview includes:
@@ -106,9 +108,11 @@ The preview includes:
 - Yearly repeat status
 
 ### 📧 Automatic Email Sending
+
 SmartWish uses the backend email service to automatically send scheduled wishes to recipients.
 
 ### 📜 Email History
+
 Users can view previously processed wishes and email-related information from the application.
 
 ---

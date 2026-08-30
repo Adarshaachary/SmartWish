@@ -1,9 +1,10 @@
 import {
-  FormEvent,
   useEffect,
   useRef,
   useState,
 } from "react";
+
+import type { FormEvent } from "react";
 
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
@@ -65,38 +66,28 @@ function AddWish() {
     )
   );
 
-  const calendarRef =
-    useRef<HTMLDivElement>(null);
+  const calendarRef = useRef<HTMLDivElement>(null);
 
   /* =========================================
      TIME PICKER
   ========================================= */
 
-  const [timePickerOpen, setTimePickerOpen] =
-    useState(false);
+  const [timePickerOpen, setTimePickerOpen] = useState(false);
 
-  const [selectedHour, setSelectedHour] =
-    useState(9);
-
-  const [selectedMinute, setSelectedMinute] =
-    useState(0);
-
+  const [selectedHour, setSelectedHour] = useState(9);
+  const [selectedMinute, setSelectedMinute] = useState(0);
   const [selectedPeriod, setSelectedPeriod] =
     useState<"AM" | "PM">("AM");
 
-  const timePickerRef =
-    useRef<HTMLDivElement>(null);
+  const timePickerRef = useRef<HTMLDivElement>(null);
 
   /* =========================================
      CLOSE PICKERS OUTSIDE CLICK
   ========================================= */
 
   useEffect(() => {
-    const handleClickOutside = (
-      event: MouseEvent
-    ) => {
-      const target =
-        event.target as Node;
+    const handleClickOutside = (event: MouseEvent) => {
+      const target = event.target as Node;
 
       if (
         calendarRef.current &&
@@ -131,9 +122,7 @@ function AddWish() {
   ========================================= */
 
   useEffect(() => {
-    const handleEscape = (
-      event: KeyboardEvent
-    ) => {
+    const handleEscape = (event: KeyboardEvent) => {
       if (event.key === "Escape") {
         setCalendarOpen(false);
         setTimePickerOpen(false);
@@ -158,11 +147,6 @@ function AddWish() {
   ========================================= */
 
   const getAuthToken = () => {
-    /*
-     * Support both the current SmartWish
-     * keys and the older login keys.
-     */
-
     return (
       localStorage.getItem("smartwish_token") ||
       sessionStorage.getItem("smartwish_token") ||
@@ -173,8 +157,6 @@ function AddWish() {
 
   /* =========================================
      GET USER NAME
-     Used internally for backend compatibility.
-     No sender name is shown in the frontend.
   ========================================= */
 
   const getLoggedInUserName = () => {
@@ -198,7 +180,9 @@ function AddWish() {
         user?.userName ||
         user?.firstName ||
         ""
-      ).toString().trim();
+      )
+        .toString()
+        .trim();
     } catch {
       return "";
     }
@@ -209,25 +193,13 @@ function AddWish() {
   ========================================= */
 
   const clearAuth = () => {
-    localStorage.removeItem(
-      "smartwish_token"
-    );
-
-    localStorage.removeItem(
-      "smartwish_user"
-    );
-
+    localStorage.removeItem("smartwish_token");
+    localStorage.removeItem("smartwish_user");
     localStorage.removeItem("token");
     localStorage.removeItem("user");
 
-    sessionStorage.removeItem(
-      "smartwish_token"
-    );
-
-    sessionStorage.removeItem(
-      "smartwish_user"
-    );
-
+    sessionStorage.removeItem("smartwish_token");
+    sessionStorage.removeItem("smartwish_user");
     sessionStorage.removeItem("token");
     sessionStorage.removeItem("user");
   };
@@ -314,13 +286,6 @@ function AddWish() {
         return;
       }
 
-      /*
-       * Sender name is no longer entered by the user.
-       * It is obtained internally from the logged-in
-       * user so the existing backend functionality
-       * continues to work.
-       */
-
       const senderName =
         getLoggedInUserName();
 
@@ -331,32 +296,19 @@ function AddWish() {
       const response = await axios.post(
         "http://localhost:5000/api/events",
         {
-          senderName:
-            senderName,
-
-          personName:
-            personName.trim(),
-
-          email:
-            email.trim().toLowerCase(),
-
+          senderName,
+          personName: personName.trim(),
+          email: email.trim().toLowerCase(),
           occasion,
-
           eventDate,
-
           eventTime,
-
-          message:
-            message.trim(),
-
-          repeatYearly:
-            Boolean(repeatYearly),
+          message: message.trim(),
+          repeatYearly: Boolean(repeatYearly),
         },
         {
           headers: {
             Authorization:
               `Bearer ${token}`,
-
             "Content-Type":
               "application/json",
           },
@@ -442,7 +394,6 @@ function AddWish() {
         serverMessage ||
           "Unable to schedule the wish. Please check your server."
       );
-
     } finally {
       setLoading(false);
     }
@@ -452,9 +403,7 @@ function AddWish() {
      DATE HELPERS
   ========================================= */
 
-  const getDateString = (
-    date: Date
-  ) => {
+  const getDateString = (date: Date) => {
     const year =
       date.getFullYear();
 
@@ -491,9 +440,7 @@ function AddWish() {
   };
 
   const formattedDate =
-    formatDateForDisplay(
-      eventDate
-    );
+    formatDateForDisplay(eventDate);
 
   /* =========================================
      TIME HELPERS
@@ -757,9 +704,7 @@ function AddWish() {
     );
   };
 
-  const isToday = (
-    date: Date
-  ) => {
+  const isToday = (date: Date) => {
     return (
       getDateString(date) ===
       getDateString(today)
@@ -1023,8 +968,7 @@ function AddWish() {
                 <button
                   type="button"
                   className={
-                    occasion ===
-                    "Anniversary"
+                    occasion === "Anniversary"
                       ? "occasion-option active"
                       : "occasion-option"
                   }
@@ -1147,6 +1091,7 @@ function AddWish() {
                   </button>
 
                   {calendarOpen && (
+
                     <div className="custom-calendar">
 
                       <div className="calendar-header">
@@ -1251,7 +1196,6 @@ function AddWish() {
                                     Boolean
                                   )
                                   .join(" ")}
-
                                 onClick={() =>
                                   handleDateSelect(
                                     date
@@ -1548,25 +1492,20 @@ function AddWish() {
                                     )
                                   }
                                 >
-
                                   {String(
                                     time.hour
                                   ).padStart(
                                     2,
                                     "0"
                                   )}
-
                                   :
-
                                   {String(
                                     time.minute
                                   ).padStart(
                                     2,
                                     "0"
                                   )}{" "}
-
                                   {time.period}
-
                                 </button>
                               );
                             }
@@ -1589,7 +1528,6 @@ function AddWish() {
                       </button>
 
                     </div>
-
                   )}
 
                 </div>
@@ -1688,13 +1626,10 @@ function AddWish() {
                 <MdRepeat />
 
                 <span>
-
                   This wish will repeat every year on{" "}
-
                   <strong>
                     {yearlyDate}
                   </strong>.
-
                 </span>
 
               </div>
@@ -1790,22 +1725,17 @@ function AddWish() {
               </div>
 
               <p className="preview-to">
-
                 To{" "}
-
                 <strong>
                   {personName ||
                     "Someone Special"}
                 </strong>
-
               </p>
 
               <p className="preview-message">
-
                 {message ||
                   "Your beautiful message will appear here..."
                 }
-
               </p>
 
               <div className="preview-line"></div>
@@ -1813,31 +1743,20 @@ function AddWish() {
               <div className="preview-schedule">
 
                 <span>
-
                   <MdCalendarMonth />
-
                   {formattedDate}
-
                 </span>
 
                 <span>
-
                   <MdAccessTime />
-
                   {formattedTime}
-
                 </span>
 
                 {repeatYearly && (
-
                   <span>
-
                     <MdRepeat />
-
                     Every year
-
                   </span>
-
                 )}
 
               </div>
@@ -1857,19 +1776,15 @@ function AddWish() {
             >
 
               {loading ? (
-
                 <>
                   <span className="spinner"></span>
                   Scheduling...
                 </>
-
               ) : (
-
                 <>
                   <MdSend />
                   Schedule Wish
                 </>
-
               )}
 
             </button>

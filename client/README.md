@@ -1,75 +1,123 @@
-# React + TypeScript + Vite
+# SmartWish
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+SmartWish is a full-stack web application that helps users schedule personalized wishes for birthdays, anniversaries, and other special occasions. Users can create a wish, choose the recipient, select the date and time, write a personalized message, and optionally repeat the wish every year.
 
-Currently, two official plugins are available:
+## Live Demo
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+https://adarshaachary.github.io/SmartWish/
 
-## React Compiler
+> Note: The frontend is currently hosted on GitHub Pages, while the backend runs locally during development. Therefore, features that require the backend, such as login, registration, wish scheduling, and automated email delivery, require the backend server to be running locally.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## GitHub Repository
 
-## Expanding the ESLint configuration
+https://github.com/Adarshaachary/SmartWish
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+---
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## Features
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+- User registration and login
+- Secure authentication using JWT
+- Personalized wish creation
+- Birthday, Anniversary, and Other occasion options
+- Recipient name and email management
+- Custom date picker
+- Custom 12-hour AM/PM time picker
+- Quick time selection
+- Schedule preview
+- Live wish message preview
+- Character count for messages
+- Yearly repeat option
+- Upcoming events management
+- Email history
+- Automated email delivery
+- Scheduled email processing using Node-Cron
+- Email delivery using Nodemailer and Gmail
+- Protected API routes
+- Responsive frontend interface
+- Modern dashboard interface
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+---
 
-```
+## Tech Stack
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### Frontend
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+- React
+- TypeScript
+- Vite
+- React Router
+- React Icons
+- CSS
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+### Backend
 
-```
+- Node.js
+- Express
+- TypeScript
+- JWT
+- bcryptjs
+- Node-Cron
+- Nodemailer
+
+### Database
+
+- MySQL
+- mysql2
+
+### Development & Deployment
+
+- Git
+- GitHub
+- GitHub Pages
+- npm
+
+---
+
+## Project Structure
+
+```text
+SmartWish/
+│
+├── client/
+│   ├── public/
+│   ├── src/
+│   │   ├── components/
+│   │   │   ├── Navbar/
+│   │   │   ├── Sidebar/
+│   │   │   ├── StatsCards/
+│   │   │   ├── UpcomingEvents/
+│   │   │   └── Welcome/
+│   │   │
+│   │   ├── EmailHistory/
+│   │   ├── pages/
+│   │   │   ├── AddWish.tsx
+│   │   │   ├── Dashboard.tsx
+│   │   │   ├── Home.tsx
+│   │   │   ├── Login.tsx
+│   │   │   ├── Register.tsx
+│   │   │   ├── UpcomingEvents.tsx
+│   │   │   └── UpdateAccount.tsx
+│   │   │
+│   │   ├── types/
+│   │   ├── utils/
+│   │   ├── App.tsx
+│   │   └── main.tsx
+│   │
+│   └── package.json
+│
+├── server/
+│   ├── src/
+│   │   ├── config/
+│   │   ├── controllers/
+│   │   ├── middleware/
+│   │   ├── models/
+│   │   ├── routes/
+│   │   ├── services/
+│   │   ├── app.ts
+│   │   ├── scheduler.ts
+│   │   └── server.ts
+│   │
+│   └── package.json
+│
+└── README.md

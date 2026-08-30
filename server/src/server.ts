@@ -7,43 +7,43 @@ import { startEmailScheduler } from "./services/emailScheduler";
 import { verifyEmailService } from "./services/emailServices";
 
 /* =========================================
-   PORT
+PORT
 ========================================= */
 
 const PORT = Number(process.env.PORT) || 5000;
 
 /* =========================================
-   START SERVER
+START SERVER
 ========================================= */
 
-app.listen(PORT, async () => {
-  console.log("==========================================");
-  console.log("       SMARTWISH BACKEND SERVER");
-  console.log("==========================================");
+app.listen(PORT, "0.0.0.0", async () => {
+console.log("==========================================");
+console.log("       SMARTWISH BACKEND SERVER");
+console.log("==========================================");
 
-  console.log(
-    `Server running on: http://localhost:${PORT}`
-  );
+console.log(
+`Server running on: http://localhost:${PORT}`
+);
 
-  console.log(
-    `API base URL: http://localhost:${PORT}/api`
-  );
+console.log(
+`API base URL: http://localhost:${PORT}/api`
+);
 
-  console.log(
-    `Auth API: http://localhost:${PORT}/api/auth`
-  );
+console.log(
+`Auth API: http://localhost:${PORT}/api/auth`
+);
 
-  console.log("==========================================");
+console.log("==========================================");
 
-  /* =======================================
-     VERIFY GMAIL
-  ======================================= */
+/* =======================================
+VERIFY GMAIL
+======================================= */
 
-  await verifyEmailService();
+await verifyEmailService();
 
-  /* =======================================
-     START SCHEDULER
-  ======================================= */
+/* =======================================
+START SCHEDULER
+======================================= */
 
-  startEmailScheduler();
+startEmailScheduler();
 });

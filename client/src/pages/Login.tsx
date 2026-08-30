@@ -1,7 +1,8 @@
 import {
-  FormEvent,
   useState,
 } from "react";
+
+import type { FormEvent } from "react";
 
 import axios from "axios";
 
@@ -29,7 +30,7 @@ import "./Login.css";
 ========================================================= */
 
 const API_URL =
-  "http://localhost:5000/api";
+  "http://192.168.1.5:5000/api";
 
 
 /* =========================================================
@@ -153,9 +154,6 @@ function Login() {
 
         /* ================================================
            TOKEN
-
-           IMPORTANT:
-           Dashboard uses smartwish_token
         ================================================ */
 
         localStorage.setItem(
@@ -166,9 +164,6 @@ function Login() {
 
         /* ================================================
            USER
-
-           IMPORTANT:
-           Dashboard uses smartwish_user
         ================================================ */
 
         if (
@@ -187,7 +182,6 @@ function Login() {
 
         /* ================================================
            ALSO KEEP OLD KEYS
-           This prevents problems with any older pages.
         ================================================ */
 
         localStorage.setItem(

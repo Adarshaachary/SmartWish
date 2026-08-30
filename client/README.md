@@ -1,8 +1,8 @@
 # SmartWish 🎉
 
-SmartWish is a full-stack web application that helps users schedule personalized wishes for birthdays, anniversaries, and other special occasions. Users can choose a recipient, set a date and time, write a custom message, and schedule the wish to be delivered automatically.
+SmartWish is a full-stack web application that helps users schedule personalized wishes for birthdays, anniversaries, festivals, and other special occasions.
 
----
+Users can choose a recipient, set a date and time, write a custom message, and schedule the wish to be delivered automatically through email.
 
 ---
 
@@ -12,104 +12,103 @@ SmartWish is a full-stack web application that helps users schedule personalized
 
 ![SmartWish Login](./screenshots/Login.png)
 
+### 📝 Register
+
+![SmartWish Register](./screenshots/Register.png)
+
 ### 📊 Dashboard
 
 ![SmartWish Dashboard](./screenshots/Dashboard.png)
 
-### 🎁 Add Wish
+### 📅 Schedule Wish
 
-![SmartWish Add Wish](./screenshots/Addwish.png)
-
-### 📅 Upcoming Wishes
-
-![SmartWish Upcoming Wishes](./screenshots/Upcoming.png)
+![Schedule Wish](./screenshots/Schedule.png)
 
 ### 📧 Email History
 
-![SmartWish Email History](./screenshots/email.png)
+![Email History](./screenshots/EmailHistory.png)
 
 ---
+
 ## ✨ Features
 
-- 🔐 User registration and login
-- 🎂 Birthday wish scheduling
-- 💕 Anniversary wish scheduling
-- 🎉 Custom occasion scheduling
-- 📅 Custom event date selection
-- ⏰ Custom wish sending time
-- 💌 Personalized wish messages
-- 🔁 Yearly recurring wishes
-- 📧 Automated email delivery
-- 📋 Email history
+- 🔐 User Registration and Login
+- 👤 Personalized user profile
+- 🎉 Schedule wishes for special occasions
+- 📅 Select custom date and time
+- ✉️ Automated email delivery
+- 💬 Write personalized messages
+- 📧 View email history
+- ⏰ Track upcoming scheduled wishes
+- 🔔 Notification status
 - 📱 Responsive user interface
-- ⚡ Modern and interactive dashboard
 
 ---
 
-## 🛠️ Tech Stack
+## 🛠️ Technologies Used
 
 ### Frontend
 
 - React
 - TypeScript
-- Vite
 - CSS
-- React Router
 - React Icons
-- Axios
+- Vite
 
 ### Backend
 
 - Node.js
 - Express.js
 - TypeScript
-- MySQL
-- Nodemailer
-- Node-Cron
 
-### Development Tools
+### Database
+
+- MySQL
+
+### Other Tools
 
 - Git
 - GitHub
-- VS Code
+- Nodemailer
+- JWT Authentication
+- bcrypt
 
 ---
 
-## 🏗️ Project Structure
+## 📂 Project Structure
 
 ```text
 SmartWish/
 │
 ├── client/
-│   ├── public/
-│   ├── screenshots/
-│   │   ├── Login.png
-│   │   ├── Dashboard.png
-│   │   ├── Addwish.png
-│   │   ├── Upcoming.png
-│   │   └── email.png
+│   ├── src/
+│   │   ├── components/
+│   │   │   ├── Dashboard/
+│   │   │   ├── Sidebar/
+│   │   │   ├── Login/
+│   │   │   ├── Register/
+│   │   │   └── ...
+│   │   │
+│   │   ├── App.tsx
+│   │   └── main.tsx
 │   │
-│   └── src/
-│       ├── components/
-│       ├── pages/
-│       ├── EmailHistory/
-│       ├── types/
-│       ├── utils/
-│       ├── App.tsx
-│       └── main.tsx
+│   └── package.json
 │
 ├── server/
-│   └── src/
-│       ├── config/
-│       ├── controllers/
-│       ├── middleware/
-│       ├── models/
-│       ├── routes/
-│       ├── services/
-│       ├── app.ts
-│       ├── scheduler.ts
-│       └── server.ts
+│   ├── src/
+│   │   ├── app.ts
+│   │   ├── server.ts
+│   │   ├── routes/
+│   │   ├── controllers/
+│   │   └── ...
+│   │
+│   └── package.json
+│
+├── screenshots/
+│   ├── Login.png
+│   ├── Register.png
+│   ├── Dashboard.png
+│   ├── Schedule.png
+│   └── EmailHistory.png
 │
 └── README.md
-
-

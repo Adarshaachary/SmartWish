@@ -1,0 +1,1926 @@
+/* =========================================================
+   ADD WISH PAGE
+========================================================= */
+
+* {
+  box-sizing: border-box;
+}
+
+.addwish-layout {
+  min-height: 100vh;
+  width: 100%;
+  position: relative;
+  overflow-x: hidden;
+  background:
+    radial-gradient(
+      circle at 10% 10%,
+      rgba(124, 58, 237, 0.12),
+      transparent 32%
+    ),
+    radial-gradient(
+      circle at 90% 20%,
+      rgba(236, 72, 153, 0.10),
+      transparent 32%
+    ),
+    linear-gradient(
+      135deg,
+      #f8f7ff 0%,
+      #ffffff 48%,
+      #fff8fc 100%
+    );
+  color: #171329;
+  padding: 28px 24px 70px;
+  font-family:
+    Inter,
+    ui-sans-serif,
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
+}
+
+/* =========================================================
+   BACKGROUND ORBS
+========================================================= */
+
+.addwish-orb {
+  position: fixed;
+  border-radius: 50%;
+  pointer-events: none;
+  filter: blur(2px);
+  z-index: 0;
+}
+
+.addwish-orb-one {
+  width: 360px;
+  height: 360px;
+  top: -180px;
+  left: -160px;
+  background:
+    radial-gradient(
+      circle,
+      rgba(124, 58, 237, 0.14),
+      transparent 70%
+    );
+}
+
+.addwish-orb-two {
+  width: 420px;
+  height: 420px;
+  right: -220px;
+  bottom: -220px;
+  background:
+    radial-gradient(
+      circle,
+      rgba(236, 72, 153, 0.12),
+      transparent 70%
+    );
+}
+
+/* =========================================================
+   MAIN CONTAINER
+========================================================= */
+
+.addwish-container {
+  width: min(1180px, 100%);
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+}
+
+/* =========================================================
+   TOP BAR
+========================================================= */
+
+.addwish-topbar {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 42px;
+}
+
+.back-button {
+  border: 1px solid rgba(124, 58, 237, 0.14);
+  background: rgba(255, 255, 255, 0.82);
+  color: #6d28d9;
+  min-height: 42px;
+  padding: 0 16px;
+  border-radius: 13px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 700;
+  transition:
+    transform 0.2s ease,
+    background 0.2s ease,
+    box-shadow 0.2s ease;
+  box-shadow:
+    0 5px 18px rgba(91, 33, 182, 0.07);
+}
+
+.back-button svg {
+  font-size: 19px;
+}
+
+.back-button:hover {
+  transform: translateY(-2px);
+  background: #ffffff;
+  box-shadow:
+    0 9px 24px rgba(91, 33, 182, 0.12);
+}
+
+.topbar-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  color: #6d28d9;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+}
+
+.topbar-brand svg {
+  font-size: 19px;
+}
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+.addwish-header {
+  text-align: center;
+  margin: 0 auto 38px;
+}
+
+.page-icon {
+  width: 64px;
+  height: 64px;
+  margin: 0 auto 18px;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #7c3aed;
+  background:
+    linear-gradient(
+      135deg,
+      rgba(124, 58, 237, 0.14),
+      rgba(236, 72, 153, 0.10)
+    );
+  box-shadow:
+    0 12px 30px rgba(124, 58, 237, 0.10);
+}
+
+.page-icon svg {
+  font-size: 31px;
+}
+
+.page-eyebrow {
+  margin: 0 0 9px;
+  color: #7c3aed;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.19em;
+}
+
+.addwish-header h1 {
+  margin: 0;
+  color: #201a35;
+  font-family:
+    Georgia,
+    "Times New Roman",
+    serif;
+  font-size: clamp(36px, 5vw, 54px);
+  line-height: 1.05;
+  letter-spacing: -0.035em;
+}
+
+.page-description {
+  margin: 13px 0 0;
+  color: #7a728d;
+  font-size: 15px;
+  line-height: 1.7;
+}
+
+/* =========================================================
+   ALERTS
+========================================================= */
+
+.form-alert {
+  width: 100%;
+  min-height: 52px;
+  margin: 0 auto 22px;
+  padding: 13px 16px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  font-size: 13px;
+  font-weight: 600;
+  animation: alertIn 0.3s ease;
+}
+
+.form-alert svg {
+  flex: 0 0 auto;
+  font-size: 21px;
+}
+
+.success-alert {
+  color: #047857;
+  background: rgba(16, 185, 129, 0.09);
+  border: 1px solid rgba(16, 185, 129, 0.18);
+}
+
+.error-alert {
+  color: #b91c1c;
+  background: rgba(239, 68, 68, 0.08);
+  border: 1px solid rgba(239, 68, 68, 0.16);
+}
+
+@keyframes alertIn {
+  from {
+    opacity: 0;
+    transform: translateY(-7px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* =========================================================
+   MAIN GRID
+========================================================= */
+
+.addwish-grid {
+  display: grid;
+  grid-template-columns:
+    minmax(0, 1fr)
+    minmax(0, 1fr);
+  gap: 22px;
+}
+
+/* =========================================================
+   CARDS
+========================================================= */
+
+.wish-card {
+  min-width: 0;
+  background: rgba(255, 255, 255, 0.92);
+  border: 1px solid rgba(102, 78, 150, 0.11);
+  border-radius: 24px;
+  padding: 28px;
+  box-shadow:
+    0 14px 45px rgba(48, 35, 84, 0.065);
+  backdrop-filter: blur(12px);
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+.wish-card:hover {
+  box-shadow:
+    0 18px 50px rgba(48, 35, 84, 0.085);
+}
+
+.message-card,
+.preview-card,
+.submit-section {
+  grid-column: 1 / -1;
+}
+
+/* =========================================================
+   CARD TITLE
+========================================================= */
+
+.card-title-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 28px;
+}
+
+.card-title-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 15px;
+  flex: 0 0 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.card-title-icon svg {
+  font-size: 23px;
+}
+
+.purple-bg {
+  color: #7c3aed;
+  background: #f0e9ff;
+}
+
+.blue-bg {
+  color: #0284c7;
+  background: #e6f5ff;
+}
+
+.pink-bg {
+  color: #db2777;
+  background: #ffe8f3;
+}
+
+.card-title-row h2 {
+  margin: 0 0 4px;
+  color: #211b34;
+  font-family:
+    Georgia,
+    "Times New Roman",
+    serif;
+  font-size: 22px;
+  line-height: 1.2;
+}
+
+.card-title-row p {
+  margin: 0;
+  color: #8b829c;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+/* =========================================================
+   INPUT GROUP
+========================================================= */
+
+.input-group {
+  margin-bottom: 21px;
+}
+
+.input-group:last-child {
+  margin-bottom: 0;
+}
+
+.input-group > label {
+  display: block;
+  margin-bottom: 8px;
+  color: #40384e;
+  font-size: 12px;
+  font-weight: 750;
+}
+
+/* =========================================================
+   INPUT WRAPPER
+========================================================= */
+
+.input-wrapper {
+  width: 100%;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0 14px;
+  border: 1px solid #e8e2ef;
+  border-radius: 13px;
+  background: #ffffff;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    background 0.2s ease;
+}
+
+.input-wrapper > svg {
+  flex: 0 0 auto;
+  color: #9a91a9;
+  font-size: 19px;
+}
+
+.input-wrapper:focus-within {
+  border-color: #8b5cf6;
+  box-shadow:
+    0 0 0 3px rgba(139, 92, 246, 0.09);
+  background: #ffffff;
+}
+
+.input-wrapper input {
+  width: 100%;
+  min-width: 0;
+  height: 100%;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: #292238;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.input-wrapper input::placeholder {
+  color: #aaa2b3;
+}
+
+.input-wrapper input:disabled {
+  opacity: 0.6;
+}
+
+/* =========================================================
+   OCCASION
+========================================================= */
+
+.occasion-grid {
+  display: grid;
+  grid-template-columns:
+    repeat(3, minmax(0, 1fr));
+  gap: 9px;
+}
+
+.occasion-option {
+  min-height: 76px;
+  padding: 10px 7px;
+  border: 1px solid #e9e3ef;
+  border-radius: 13px;
+  background: #ffffff;
+  color: #62596f;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  cursor: pointer;
+  font-size: 11px;
+  font-weight: 700;
+  transition:
+    border-color 0.2s ease,
+    background 0.2s ease,
+    color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.occasion-option:hover {
+  transform: translateY(-2px);
+  border-color: #c4b5fd;
+  background: #faf8ff;
+}
+
+.occasion-option.active {
+  border-color: #8b5cf6;
+  background:
+    linear-gradient(
+      135deg,
+      #f4efff,
+      #fff4fa
+    );
+  color: #6d28d9;
+  box-shadow:
+    0 7px 18px rgba(124, 58, 237, 0.08);
+}
+
+.occasion-icon {
+  width: 29px;
+  height: 29px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9px;
+  background: #f5f2f8;
+}
+
+.occasion-icon svg {
+  font-size: 17px;
+}
+
+.occasion-option.active
+  .occasion-icon {
+  background: #ffffff;
+  color: #7c3aed;
+}
+
+/* =========================================================
+   SCHEDULE GRID
+========================================================= */
+
+.schedule-grid {
+  display: grid;
+  grid-template-columns:
+    repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+
+/* =========================================================
+   SMART DATE / TIME
+========================================================= */
+
+.smart-date-picker,
+.smart-time-picker {
+  position: relative;
+  width: 100%;
+}
+
+.date-field,
+.time-field {
+  width: 100%;
+  min-height: 50px;
+  border: 1px solid #e8e2ef;
+  border-radius: 13px;
+  background: #ffffff;
+  color: #393145;
+  padding: 0 13px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  text-align: left;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    background 0.2s ease;
+}
+
+.date-field:hover,
+.time-field:hover,
+.date-field.active,
+.time-field.active {
+  border-color: #8b5cf6;
+  box-shadow:
+    0 0 0 3px rgba(139, 92, 246, 0.08);
+}
+
+.date-field > svg,
+.time-field > svg {
+  flex: 0 0 auto;
+  color: #8b5cf6;
+  font-size: 19px;
+}
+
+.date-field span,
+.time-field span {
+  flex: 1;
+}
+
+.date-placeholder {
+  color: #aaa2b3;
+}
+
+.date-value {
+  color: #393145;
+}
+
+.time-arrow {
+  color: #8e859a !important;
+  transition: transform 0.2s ease;
+}
+
+.time-arrow.rotated {
+  transform: rotate(180deg);
+}
+
+/* =========================================================
+   CUSTOM CALENDAR
+========================================================= */
+
+.custom-calendar {
+  position: absolute;
+  z-index: 50;
+  top: calc(100% + 9px);
+  left: 0;
+  width: min(330px, calc(100vw - 48px));
+  padding: 18px;
+  border: 1px solid #ebe5f2;
+  border-radius: 19px;
+  background: #ffffff;
+  box-shadow:
+    0 22px 55px rgba(39, 25, 67, 0.16);
+  animation: pickerIn 0.18s ease;
+}
+
+@keyframes pickerIn {
+  from {
+    opacity: 0;
+    transform: translateY(-5px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.calendar-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 17px;
+}
+
+.calendar-month {
+  display: block;
+  color: #292038;
+  font-family:
+    Georgia,
+    "Times New Roman",
+    serif;
+  font-size: 17px;
+  font-weight: 700;
+}
+
+.calendar-subtitle {
+  display: block;
+  margin-top: 3px;
+  color: #9a91a7;
+  font-size: 10px;
+}
+
+.calendar-navigation {
+  display: flex;
+  gap: 5px;
+}
+
+.calendar-navigation button {
+  width: 31px;
+  height: 31px;
+  border: 1px solid #eee9f3;
+  border-radius: 9px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #faf9fc;
+  color: #6d28d9;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.calendar-navigation button:hover {
+  background: #f1ebff;
+  border-color: #ddd0ff;
+}
+
+.calendar-navigation svg {
+  font-size: 19px;
+}
+
+.calendar-weekdays,
+.calendar-grid {
+  display: grid;
+  grid-template-columns:
+    repeat(7, 1fr);
+}
+
+.calendar-weekdays {
+  margin-bottom: 7px;
+}
+
+.calendar-weekdays span {
+  text-align: center;
+  color: #aaa2b2;
+  font-size: 10px;
+  font-weight: 800;
+}
+
+.calendar-grid {
+  row-gap: 5px;
+}
+
+.calendar-empty {
+  min-height: 34px;
+}
+
+.calendar-day {
+  width: 34px;
+  height: 34px;
+  justify-self: center;
+  border: 0;
+  border-radius: 10px;
+  background: transparent;
+  color: #4d4559;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 11px;
+  font-weight: 650;
+  transition:
+    background 0.18s ease,
+    color 0.18s ease,
+    transform 0.18s ease;
+}
+
+.calendar-day:hover {
+  background: #f1ebff;
+  color: #6d28d9;
+}
+
+.calendar-day.today {
+  box-shadow:
+    inset 0 0 0 1px #c4b5fd;
+  color: #7c3aed;
+}
+
+.calendar-day.selected {
+  background:
+    linear-gradient(
+      135deg,
+      #7c3aed,
+      #a855f7
+    );
+  color: #ffffff;
+  box-shadow:
+    0 6px 13px rgba(124, 58, 237, 0.25);
+}
+
+.calendar-day.selected:hover {
+  background:
+    linear-gradient(
+      135deg,
+      #6d28d9,
+      #9333ea
+    );
+  color: #ffffff;
+}
+
+.calendar-footer {
+  margin-top: 14px;
+  padding-top: 13px;
+  border-top: 1px solid #f0edf3;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.calendar-footer button {
+  border: 0;
+  background: transparent;
+  color: #7c3aed;
+  cursor: pointer;
+  font-size: 11px;
+  font-weight: 800;
+}
+
+/* =========================================================
+   CUSTOM TIME PICKER
+========================================================= */
+
+.custom-time-picker {
+  position: absolute;
+  z-index: 50;
+  top: calc(100% + 9px);
+  right: 0;
+  width: min(365px, calc(100vw - 48px));
+  padding: 18px;
+  border: 1px solid #ebe5f2;
+  border-radius: 19px;
+  background: #ffffff;
+  box-shadow:
+    0 22px 55px rgba(39, 25, 67, 0.16);
+  animation: pickerIn 0.18s ease;
+}
+
+.time-picker-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #f0edf3;
+}
+
+.time-picker-title {
+  display: block;
+  color: #292038;
+  font-family:
+    Georgia,
+    "Times New Roman",
+    serif;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.time-picker-subtitle {
+  display: block;
+  margin-top: 3px;
+  color: #9a91a7;
+  font-size: 10px;
+}
+
+.time-preview {
+  padding: 8px 10px;
+  border-radius: 9px;
+  color: #6d28d9;
+  background: #f2ecff;
+  font-size: 11px;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.time-selector {
+  min-height: 154px;
+  padding: 17px 5px 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+}
+
+.time-column {
+  min-width: 65px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.time-arrow-button {
+  width: 30px;
+  height: 25px;
+  border: 0;
+  background: transparent;
+  color: #9b92a9;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border-radius: 7px;
+}
+
+.time-arrow-button:hover {
+  color: #7c3aed;
+  background: #f5f1ff;
+}
+
+.time-arrow-button svg {
+  font-size: 20px;
+}
+
+.time-value {
+  width: 65px;
+  height: 49px;
+  border-radius: 12px;
+  background:
+    linear-gradient(
+      135deg,
+      #f2edff,
+      #fbf6ff
+    );
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #292038;
+  font-size: 23px;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+}
+
+.time-label {
+  margin-top: 6px;
+  color: #aaa2b2;
+  font-size: 8px;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+}
+
+.time-colon {
+  margin-top: -12px;
+  color: #756b80;
+  font-size: 22px;
+  font-weight: 800;
+}
+
+.period-selector {
+  margin-left: 7px;
+  padding: 4px;
+  border-radius: 11px;
+  background: #f4f1f7;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.period-button {
+  width: 48px;
+  height: 34px;
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+  color: #81778d;
+  cursor: pointer;
+  font-size: 10px;
+  font-weight: 800;
+}
+
+.period-button.active {
+  background: #ffffff;
+  color: #7c3aed;
+  box-shadow:
+    0 4px 10px rgba(55, 37, 81, 0.09);
+}
+
+/* =========================================================
+   QUICK TIME
+========================================================= */
+
+.quick-time-section {
+  padding-top: 14px;
+  border-top: 1px solid #f0edf3;
+}
+
+.quick-time-section > span {
+  display: block;
+  margin-bottom: 8px;
+  color: #aaa2b2;
+  font-size: 8px;
+  font-weight: 800;
+  letter-spacing: 0.13em;
+}
+
+.quick-time-options {
+  display: grid;
+  grid-template-columns:
+    repeat(4, 1fr);
+  gap: 5px;
+}
+
+.quick-time {
+  min-height: 31px;
+  border: 1px solid #eee9f3;
+  border-radius: 8px;
+  background: #faf9fc;
+  color: #665d70;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 9px;
+  font-weight: 700;
+}
+
+.quick-time:hover {
+  border-color: #c4b5fd;
+  background: #f7f3ff;
+}
+
+.quick-time.active {
+  border-color: #8b5cf6;
+  background: #f1ebff;
+  color: #6d28d9;
+}
+
+.time-done-button {
+  width: 100%;
+  min-height: 38px;
+  margin-top: 14px;
+  border: 0;
+  border-radius: 10px;
+  background:
+    linear-gradient(
+      135deg,
+      #7c3aed,
+      #9333ea
+    );
+  color: #ffffff;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 11px;
+  font-weight: 800;
+  transition: transform 0.2s ease;
+}
+
+.time-done-button:hover {
+  transform: translateY(-1px);
+}
+
+/* =========================================================
+   SCHEDULE PREVIEW
+========================================================= */
+
+.schedule-preview {
+  margin-top: 22px;
+  padding: 14px;
+  border: 1px solid #ece7f2;
+  border-radius: 15px;
+  background:
+    linear-gradient(
+      135deg,
+      #fbf9ff,
+      #fffafd
+    );
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.preview-icon {
+  width: 40px;
+  height: 40px;
+  flex: 0 0 40px;
+  border-radius: 12px;
+  background: #f0eaff;
+  color: #7c3aed;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.preview-icon svg {
+  font-size: 20px;
+}
+
+.schedule-preview span {
+  display: block;
+  color: #aaa1b2;
+  font-size: 8px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+}
+
+.schedule-preview strong {
+  display: inline-block;
+  margin-top: 3px;
+  color: #322a3e;
+  font-size: 12px;
+  font-weight: 750;
+}
+
+.schedule-preview small {
+  margin-left: 7px;
+  color: #7c3aed;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+/* =========================================================
+   REPEAT
+========================================================= */
+
+.repeat-box {
+  margin-top: 14px;
+  padding: 14px;
+  border: 1px solid #ebe5f0;
+  border-radius: 15px;
+  background: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  transition:
+    border-color 0.2s ease,
+    background 0.2s ease;
+}
+
+.repeat-box.active {
+  border-color: #c4b5fd;
+  background:
+    linear-gradient(
+      135deg,
+      #faf7ff,
+      #fff8fc
+    );
+}
+
+.repeat-left {
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 11px;
+}
+
+.repeat-icon {
+  width: 38px;
+  height: 38px;
+  flex: 0 0 38px;
+  border-radius: 11px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #7c3aed;
+  background: #f1ebff;
+}
+
+.repeat-icon svg {
+  font-size: 19px;
+}
+
+.repeat-left h3 {
+  margin: 0 0 3px;
+  color: #332c3d;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.repeat-left p {
+  margin: 0;
+  color: #978e9f;
+  font-size: 10px;
+  line-height: 1.45;
+}
+
+.toggle {
+  width: 47px;
+  height: 27px;
+  flex: 0 0 47px;
+  padding: 3px;
+  border: 0;
+  border-radius: 30px;
+  background: #d9d4df;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.toggle span {
+  display: block;
+  width: 21px;
+  height: 21px;
+  border-radius: 50%;
+  background: #ffffff;
+  box-shadow:
+    0 2px 5px rgba(0, 0, 0, 0.14);
+  transition: transform 0.2s ease;
+}
+
+.toggle.active {
+  background:
+    linear-gradient(
+      135deg,
+      #7c3aed,
+      #a855f7
+    );
+}
+
+.toggle.active span {
+  transform: translateX(20px);
+}
+
+.repeat-info {
+  margin-top: 11px;
+  padding: 10px 12px;
+  border-radius: 11px;
+  background: #f7f3ff;
+  color: #756a84;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 10px;
+  line-height: 1.5;
+}
+
+.repeat-info svg {
+  flex: 0 0 auto;
+  color: #7c3aed;
+  font-size: 16px;
+}
+
+.repeat-info strong {
+  color: #6d28d9;
+}
+
+/* =========================================================
+   MESSAGE
+========================================================= */
+
+.message-card textarea {
+  width: 100%;
+  min-height: 170px;
+  padding: 15px;
+  resize: vertical;
+  border: 1px solid #e8e2ef;
+  border-radius: 14px;
+  outline: none;
+  background: #ffffff;
+  color: #30293a;
+  font-family: inherit;
+  font-size: 13px;
+  line-height: 1.7;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.message-card textarea:focus {
+  border-color: #8b5cf6;
+  box-shadow:
+    0 0 0 3px rgba(139, 92, 246, 0.08);
+}
+
+.message-card textarea::placeholder {
+  color: #aaa2b3;
+}
+
+.character-count {
+  margin-top: 7px;
+  text-align: right;
+  color: #aaa2b2;
+  font-size: 9px;
+}
+
+/* =========================================================
+   LIVE PREVIEW
+========================================================= */
+
+.preview-heading {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 15px;
+  margin-bottom: 22px;
+}
+
+.preview-heading p {
+  margin: 0 0 5px;
+  color: #db2777;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 0.15em;
+}
+
+.preview-heading h2 {
+  margin: 0;
+  color: #282037;
+  font-family:
+    Georgia,
+    "Times New Roman",
+    serif;
+  font-size: 23px;
+}
+
+.preview-status {
+  padding: 7px 11px;
+  border-radius: 30px;
+  background: #eafaf4;
+  color: #059669;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 9px;
+  font-weight: 800;
+}
+
+.preview-status svg {
+  font-size: 14px;
+}
+
+.wish-preview {
+  position: relative;
+  padding: 28px;
+  border-radius: 19px;
+  text-align: center;
+  background:
+    radial-gradient(
+      circle at 50% 0%,
+      rgba(124, 58, 237, 0.09),
+      transparent 38%
+    ),
+    linear-gradient(
+      135deg,
+      #fbf9ff,
+      #fff9fc
+    );
+  border: 1px solid #eee8f4;
+}
+
+.preview-occasion-icon {
+  width: 54px;
+  height: 54px;
+  margin: 0 auto 15px;
+  border-radius: 17px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background:
+    linear-gradient(
+      135deg,
+      #eee6ff,
+      #ffeaf4
+    );
+  color: #7c3aed;
+}
+
+.preview-occasion-icon svg {
+  font-size: 27px;
+}
+
+.preview-to {
+  margin: 5px 0;
+  color: #81778e;
+  font-size: 11px;
+}
+
+.preview-to strong {
+  color: #3a3145;
+  font-weight: 800;
+}
+
+.preview-message {
+  max-width: 650px;
+  margin: 17px auto;
+  color: #50465c;
+  font-family:
+    Georgia,
+    "Times New Roman",
+    serif;
+  font-size: 15px;
+  line-height: 1.75;
+  word-break: break-word;
+  white-space: pre-wrap;
+}
+
+.preview-line {
+  width: 75px;
+  height: 1px;
+  margin: 19px auto;
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      #cfc5dc,
+      transparent
+    );
+}
+
+.preview-schedule {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+}
+
+.preview-schedule span {
+  min-height: 31px;
+  padding: 6px 10px;
+  border-radius: 9px;
+  background: #ffffff;
+  border: 1px solid #eee9f2;
+  color: #776d82;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 9px;
+  font-weight: 700;
+}
+
+.preview-schedule svg {
+  color: #8b5cf6;
+  font-size: 14px;
+}
+
+/* =========================================================
+   SUBMIT
+========================================================= */
+
+.submit-section {
+  display: flex;
+  justify-content: center;
+  padding-top: 2px;
+}
+
+.schedule-button {
+  min-width: 235px;
+  min-height: 53px;
+  padding: 0 25px;
+  border: 0;
+  border-radius: 15px;
+  background:
+    linear-gradient(
+      135deg,
+      #7c3aed,
+      #9333ea 55%,
+      #db2777
+    );
+  color: #ffffff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 800;
+  box-shadow:
+    0 12px 28px rgba(124, 58, 237, 0.23);
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    opacity 0.2s ease;
+}
+
+.schedule-button svg {
+  font-size: 20px;
+}
+
+.schedule-button:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow:
+    0 16px 32px rgba(124, 58, 237, 0.28);
+}
+
+.schedule-button:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.schedule-button:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+/* =========================================================
+   SPINNER
+========================================================= */
+
+.spinner {
+  width: 17px;
+  height: 17px;
+  border: 2px solid rgba(255, 255, 255, 0.4);
+  border-top-color: #ffffff;
+  border-radius: 50%;
+  animation:
+    spin 0.75s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 900px) {
+  .addwish-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .message-card,
+  .preview-card,
+  .submit-section {
+    grid-column: auto;
+  }
+}
+
+@media (max-width: 650px) {
+  .addwish-layout {
+    padding: 20px 14px 50px;
+  }
+
+  .addwish-topbar {
+    margin-bottom: 30px;
+  }
+
+  .topbar-brand {
+    font-size: 10px;
+  }
+
+  .back-button {
+    min-height: 39px;
+    padding: 0 12px;
+    font-size: 11px;
+  }
+
+  .addwish-header {
+    margin-bottom: 28px;
+  }
+
+  .page-icon {
+    width: 56px;
+    height: 56px;
+    border-radius: 17px;
+  }
+
+  .addwish-header h1 {
+    font-size: 36px;
+  }
+
+  .page-description {
+    font-size: 13px;
+  }
+
+  .wish-card {
+    padding: 21px;
+    border-radius: 19px;
+  }
+
+  .schedule-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .occasion-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .occasion-option {
+    min-height: 58px;
+    flex-direction: row;
+    justify-content: flex-start;
+    padding: 9px 13px;
+  }
+
+  .occasion-icon {
+    width: 32px;
+    height: 32px;
+  }
+
+  .custom-calendar {
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .custom-time-picker {
+    left: 50%;
+    right: auto;
+    transform: translateX(-50%);
+  }
+
+  .wish-preview {
+    padding: 21px 15px;
+  }
+
+  .preview-message {
+    font-size: 13px;
+  }
+
+  .schedule-button {
+    width: 100%;
+  }
+}
+
+@media (max-width: 430px) {
+  .addwish-layout {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+  .topbar-brand {
+    display: none;
+  }
+
+  .addwish-header h1 {
+    font-size: 31px;
+  }
+
+  .wish-card {
+    padding: 17px;
+  }
+
+  .card-title-row {
+    gap: 10px;
+    margin-bottom: 22px;
+  }
+
+  .card-title-icon {
+    width: 43px;
+    height: 43px;
+    flex-basis: 43px;
+  }
+
+  .card-title-row h2 {
+    font-size: 19px;
+  }
+
+  .card-title-row p {
+    font-size: 10px;
+  }
+
+  .custom-calendar,
+  .custom-time-picker {
+    width: calc(100vw - 35px);
+  }
+
+  .time-selector {
+    gap: 4px;
+  }
+
+  .time-column {
+    min-width: 55px;
+  }
+
+  .time-value {
+    width: 55px;
+    height: 45px;
+    font-size: 20px;
+  }
+
+  .period-button {
+    width: 43px;
+  }
+
+  .quick-time-options {
+    grid-template-columns:
+      repeat(2, 1fr);
+  }
+
+  .preview-schedule {
+    flex-direction: column;
+  }
+
+  .preview-schedule span {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+
+/* =========================================================
+   SMARTWISH - CALENDAR & TIME PICKER VISIBILITY FIX
+   ========================================================= */
+
+/* ---------------------------------------------------------
+   MAIN FORM
+--------------------------------------------------------- */
+
+.addwish-grid {
+  position: relative;
+  overflow: visible !important;
+}
+
+/* ---------------------------------------------------------
+   ALL CARDS
+--------------------------------------------------------- */
+
+.wish-card {
+  position: relative;
+  overflow: visible !important;
+}
+
+/* ---------------------------------------------------------
+   SCHEDULE CARD
+   This card contains the calendar and time picker.
+   Keep it above the cards below it.
+--------------------------------------------------------- */
+
+.schedule-grid {
+  position: relative;
+  overflow: visible !important;
+}
+
+.schedule-grid .input-group {
+  position: relative;
+  overflow: visible !important;
+}
+
+/* ---------------------------------------------------------
+   DATE PICKER WRAPPER
+--------------------------------------------------------- */
+
+.smart-date-picker {
+  position: relative;
+  overflow: visible !important;
+  z-index: 100;
+}
+
+/* ---------------------------------------------------------
+   DATE FIELD
+--------------------------------------------------------- */
+
+.date-field {
+  position: relative;
+  z-index: 101;
+}
+
+/* ---------------------------------------------------------
+   CUSTOM CALENDAR
+--------------------------------------------------------- */
+
+.custom-calendar {
+  position: absolute;
+
+  top: calc(100% + 10px);
+  left: 0;
+
+  /*
+     Keep the existing visual width,
+     but make sure the complete calendar
+     has enough space for all 6 rows.
+  */
+  width: 100%;
+  min-width: 410px;
+
+  height: auto;
+  min-height: 400px;
+
+  /*
+     IMPORTANT:
+     Do not allow the calendar to be clipped.
+  */
+  overflow: visible !important;
+
+  z-index: 99999;
+
+  box-sizing: border-box;
+}
+
+/* ---------------------------------------------------------
+   CALENDAR HEADER
+--------------------------------------------------------- */
+
+.calendar-header {
+  position: relative;
+  z-index: 2;
+}
+
+/* ---------------------------------------------------------
+   WEEK DAYS
+--------------------------------------------------------- */
+
+.calendar-weekdays {
+  display: grid;
+
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+
+  width: 100%;
+
+  box-sizing: border-box;
+}
+
+/* ---------------------------------------------------------
+   CALENDAR DAYS
+--------------------------------------------------------- */
+
+.calendar-grid {
+  display: grid;
+
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+
+  /*
+     Six complete calendar rows.
+     This is the important part that prevents
+     the lower dates from being compressed/clipped.
+  */
+  grid-template-rows: repeat(6, 48px);
+
+  width: 100%;
+
+  min-height: 288px;
+
+  box-sizing: border-box;
+
+  align-items: center;
+  justify-items: center;
+
+  overflow: visible !important;
+}
+
+/* ---------------------------------------------------------
+   CALENDAR DAY BUTTON
+--------------------------------------------------------- */
+
+.calendar-day {
+  width: 38px;
+  height: 38px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  box-sizing: border-box;
+
+  position: relative;
+  z-index: 2;
+}
+
+/* ---------------------------------------------------------
+   EMPTY CALENDAR CELLS
+--------------------------------------------------------- */
+
+.calendar-empty {
+  width: 38px;
+  height: 38px;
+
+  display: block;
+}
+
+/* ---------------------------------------------------------
+   CALENDAR FOOTER
+--------------------------------------------------------- */
+
+.calendar-footer {
+  position: relative;
+  z-index: 2;
+
+  width: 100%;
+
+  box-sizing: border-box;
+}
+
+/* ---------------------------------------------------------
+   TIME PICKER WRAPPER
+--------------------------------------------------------- */
+
+.smart-time-picker {
+  position: relative;
+  overflow: visible !important;
+  z-index: 100;
+}
+
+/* ---------------------------------------------------------
+   TIME FIELD
+--------------------------------------------------------- */
+
+.time-field {
+  position: relative;
+  z-index: 101;
+}
+
+/* ---------------------------------------------------------
+   CUSTOM TIME PICKER
+--------------------------------------------------------- */
+
+.custom-time-picker {
+  position: absolute;
+
+  top: calc(100% + 10px);
+  right: 0;
+
+  z-index: 99999;
+
+  overflow: visible !important;
+
+  box-sizing: border-box;
+}
+
+/* ---------------------------------------------------------
+   MAKE SURE THE SCHEDULE CARD IS ABOVE MESSAGE CARD
+--------------------------------------------------------- */
+
+/*
+   Your JSX order is:
+
+   1. Recipient Details
+   2. Schedule
+   3. Message
+   4. Live Preview
+
+   Therefore the Schedule card needs a higher stacking
+   level than the cards below it.
+*/
+
+.addwish-grid > .wish-card:nth-child(2) {
+  position: relative;
+  z-index: 100;
+  overflow: visible !important;
+}
+
+/* Message card */
+.addwish-grid > .wish-card:nth-child(3) {
+  position: relative;
+  z-index: 1;
+}
+
+/* Preview card */
+.addwish-grid > .wish-card:nth-child(4) {
+  position: relative;
+  z-index: 1;
+}
+
+/* ---------------------------------------------------------
+   PICKER ALWAYS ABOVE EVERYTHING INSIDE THE FORM
+--------------------------------------------------------- */
+
+.custom-calendar,
+.custom-time-picker {
+  isolation: isolate;
+}
+
+/* ---------------------------------------------------------
+   RESPONSIVE
+--------------------------------------------------------- */
+
+@media (max-width: 768px) {
+  .custom-calendar {
+    min-width: 0;
+    width: 100%;
+  }
+
+  .custom-time-picker {
+    right: 0;
+    max-width: calc(100vw - 40px);
+  }
+
+  .calendar-grid {
+    grid-template-rows: repeat(6, 44px);
+    min-height: 264px;
+  }
+}
+
+@media (max-width: 520px) {
+  .custom-calendar {
+    left: 0;
+    width: 100%;
+    min-width: 0;
+  }
+
+  .calendar-grid {
+    grid-template-rows: repeat(6, 42px);
+    min-height: 252px;
+  }
+
+  .calendar-day {
+    width: 34px;
+    height: 34px;
+  }
+
+  .calendar-empty {
+    width: 34px;
+    height: 34px;
+  }
+}

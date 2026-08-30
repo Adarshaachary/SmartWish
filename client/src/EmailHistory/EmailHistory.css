@@ -1,0 +1,1112 @@
+/* =========================================================
+   EMAIL HISTORY PAGE
+========================================================= */
+
+.email-history-page {
+  min-height: 100vh;
+  width: 100%;
+  box-sizing: border-box;
+
+  padding: 42px 40px 60px;
+
+  background:
+    radial-gradient(
+      circle at 10% 10%,
+      rgba(124, 58, 237, 0.08),
+      transparent 30%
+    ),
+    radial-gradient(
+      circle at 90% 15%,
+      rgba(236, 72, 153, 0.06),
+      transparent 28%
+    ),
+    #faf9ff;
+
+  color: #211a36;
+
+  font-family:
+    Inter,
+    ui-sans-serif,
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
+
+  box-sizing: border-box;
+}
+
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+.email-history-header {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+
+  margin-bottom: 34px;
+}
+
+.email-history-header-left {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+
+/* =========================================================
+   BACK BUTTON
+========================================================= */
+
+.email-back-button {
+  width: fit-content;
+
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+
+  border: none;
+  background: transparent;
+
+  padding: 8px 4px;
+
+  color: #713cff;
+
+  font-size: 14px;
+  font-weight: 700;
+
+  cursor: pointer;
+
+  transition:
+    color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.email-back-button svg {
+  width: 18px;
+  height: 18px;
+  stroke-width: 2.5;
+}
+
+.email-back-button:hover {
+  color: #5b21b6;
+  transform: translateX(-3px);
+}
+
+
+/* =========================================================
+   TITLE
+========================================================= */
+
+.email-history-title-row {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.email-history-title-icon {
+  width: 66px;
+  height: 66px;
+
+  flex-shrink: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 20px;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(124, 58, 237, 0.13),
+      rgba(168, 85, 247, 0.08)
+    );
+
+  color: #713cff;
+}
+
+.email-history-title-icon svg {
+  width: 29px;
+  height: 29px;
+  stroke-width: 2;
+}
+
+.email-history-title-row h1 {
+  margin: 0 0 8px;
+
+  font-family:
+    Georgia,
+    "Times New Roman",
+    serif;
+
+  font-size: 48px;
+  line-height: 1.05;
+
+  font-weight: 700;
+
+  letter-spacing: -1.5px;
+
+  color: #211a36;
+}
+
+.email-history-title-row p {
+  margin: 0;
+
+  color: #776f89;
+
+  font-family:
+    Inter,
+    ui-sans-serif,
+    system-ui,
+    sans-serif;
+
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+
+/* =========================================================
+   HEADER ICON
+========================================================= */
+
+.email-history-header-icon {
+  width: 72px;
+  height: 72px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 22px;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(236, 72, 153, 0.10),
+      rgba(217, 70, 239, 0.07)
+    );
+
+  color: #d946ef;
+}
+
+.email-history-header-icon svg {
+  width: 29px;
+  height: 29px;
+
+  stroke-width: 2;
+}
+
+
+/* =========================================================
+   STATISTICS
+========================================================= */
+
+.email-stats {
+  width: 100%;
+
+  display: grid;
+
+  grid-template-columns:
+    repeat(4, minmax(0, 1fr));
+
+  gap: 26px;
+
+  margin-bottom: 28px;
+}
+
+
+/* =========================================================
+   STAT CARD
+========================================================= */
+
+.email-stat-card {
+  min-height: 132px;
+
+  display: flex;
+  align-items: center;
+
+  gap: 22px;
+
+  padding: 26px 28px;
+
+  background: #ffffff;
+
+  border: 1px solid
+    rgba(111, 95, 151, 0.10);
+
+  border-radius: 24px;
+
+  box-shadow:
+    0 12px 35px
+      rgba(64, 47, 105, 0.06);
+
+  box-sizing: border-box;
+
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.email-stat-card:hover {
+  transform: translateY(-2px);
+
+  box-shadow:
+    0 16px 38px
+      rgba(64, 47, 105, 0.09);
+}
+
+
+/* =========================================================
+   STAT ICON
+========================================================= */
+
+.email-stat-icon {
+  width: 58px;
+  height: 58px;
+
+  flex-shrink: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 18px;
+}
+
+.email-stat-icon svg {
+  width: 27px;
+  height: 27px;
+
+  stroke-width: 2;
+}
+
+
+/* SENT */
+
+.email-stat-icon.sent {
+  background: #e9f8f3;
+  color: #00a878;
+}
+
+
+/* PENDING */
+
+.email-stat-icon.pending {
+  background: #fff5e5;
+  color: #ed8b00;
+}
+
+
+/* FAILED */
+
+.email-stat-icon.failed {
+  background: #fff0f1;
+  color: #ef252d;
+}
+
+
+/* TOTAL */
+
+.email-stat-icon.total {
+  background: #f0e9ff;
+  color: #7c3aed;
+}
+
+
+/* =========================================================
+   STAT CONTENT
+========================================================= */
+
+.email-stat-content {
+  min-width: 0;
+
+  display: flex;
+  flex-direction: column;
+
+  justify-content: center;
+
+  gap: 4px;
+}
+
+.email-stat-content span {
+  display: block;
+
+  margin: 0;
+
+  color: #766d87;
+
+  font-size: 14px;
+  line-height: 1.2;
+
+  font-weight: 600;
+
+  font-family:
+    Inter,
+    ui-sans-serif,
+    system-ui,
+    sans-serif;
+}
+
+
+/* =========================================================
+   IMPORTANT:
+   STAT NUMBERS FIX
+========================================================= */
+
+.email-stat-number {
+  display: block;
+
+  margin: 0;
+
+  /*
+     Use a clean UI font instead of the
+     decorative heading font.
+  */
+
+  font-family:
+    Inter,
+    ui-sans-serif,
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif !important;
+
+  font-size: 30px !important;
+
+  line-height: 1 !important;
+
+  font-weight: 750 !important;
+
+  letter-spacing: -0.7px !important;
+
+  font-stretch: normal !important;
+
+  font-style: normal !important;
+
+  transform: none !important;
+
+  color: #080512;
+
+  width: auto;
+
+  height: auto;
+
+  white-space: nowrap;
+}
+
+
+/* =========================================================
+   MAIN CARD
+========================================================= */
+
+.email-history-card {
+  width: 100%;
+
+  background: #ffffff;
+
+  border: 1px solid
+    rgba(111, 95, 151, 0.10);
+
+  border-radius: 28px;
+
+  overflow: hidden;
+
+  box-shadow:
+    0 15px 45px
+      rgba(64, 47, 105, 0.07);
+}
+
+
+/* =========================================================
+   CARD HEADER
+========================================================= */
+
+.email-history-card-header {
+  min-height: 110px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 20px;
+
+  padding: 28px 34px;
+
+  border-bottom: 1px solid
+    rgba(111, 95, 151, 0.09);
+
+  box-sizing: border-box;
+}
+
+.email-history-card-header h2 {
+  margin: 0 0 7px;
+
+  font-family:
+    Georgia,
+    "Times New Roman",
+    serif;
+
+  font-size: 25px;
+  line-height: 1.2;
+
+  color: #211a36;
+}
+
+.email-history-card-header p {
+  margin: 0;
+
+  color: #887f99;
+
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+
+/* =========================================================
+   REFRESH BUTTON
+========================================================= */
+
+.email-refresh-button {
+  flex-shrink: 0;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 9px;
+
+  min-height: 42px;
+
+  padding: 0 16px;
+
+  border: 1px solid
+    rgba(124, 58, 237, 0.16);
+
+  border-radius: 12px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #ffffff,
+      #faf7ff
+    );
+
+  color: #6d35e8;
+
+  font-family:
+    Inter,
+    ui-sans-serif,
+    system-ui,
+    sans-serif;
+
+  font-size: 13px;
+  font-weight: 700;
+
+  cursor: pointer;
+
+  box-shadow:
+    0 5px 16px
+      rgba(124, 58, 237, 0.08);
+
+  transition:
+    background 0.2s ease,
+    color 0.2s ease,
+    border-color 0.2s ease,
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.email-refresh-button svg {
+  width: 17px;
+  height: 17px;
+
+  stroke-width: 2.3;
+}
+
+.email-refresh-button:hover:not(:disabled) {
+  background:
+    linear-gradient(
+      135deg,
+      #f5efff,
+      #ffffff
+    );
+
+  border-color:
+    rgba(124, 58, 237, 0.30);
+
+  color: #5b21b6;
+
+  transform: translateY(-1px);
+
+  box-shadow:
+    0 8px 20px
+      rgba(124, 58, 237, 0.13);
+}
+
+.email-refresh-button:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.email-refresh-button:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+.email-refresh-button.refreshing svg {
+  animation:
+    email-refresh-spin 0.8s linear infinite;
+}
+
+@keyframes email-refresh-spin {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+
+/* =========================================================
+   CONTROLS
+========================================================= */
+
+.email-history-controls {
+  display: flex;
+  align-items: center;
+
+  gap: 14px;
+
+  padding: 22px 34px;
+
+  border-bottom: 1px solid
+    rgba(111, 95, 151, 0.08);
+}
+
+
+/* SEARCH */
+
+.email-search {
+  flex: 1;
+
+  height: 46px;
+
+  display: flex;
+  align-items: center;
+
+  gap: 10px;
+
+  padding: 0 15px;
+
+  background: #faf9fc;
+
+  border: 1px solid
+    rgba(111, 95, 151, 0.12);
+
+  border-radius: 12px;
+
+  box-sizing: border-box;
+
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.email-search:focus-within {
+  border-color:
+    rgba(124, 58, 237, 0.40);
+
+  box-shadow:
+    0 0 0 3px
+      rgba(124, 58, 237, 0.07);
+}
+
+.email-search svg {
+  width: 17px;
+  height: 17px;
+
+  flex-shrink: 0;
+
+  color: #8d839d;
+}
+
+.email-search input {
+  width: 100%;
+
+  border: none;
+  outline: none;
+
+  background: transparent;
+
+  color: #2c243d;
+
+  font-family:
+    Inter,
+    ui-sans-serif,
+    system-ui,
+    sans-serif;
+
+  font-size: 13px;
+}
+
+.email-search input::placeholder {
+  color: #aaa2b2;
+}
+
+
+/* =========================================================
+   STATUS FILTER
+========================================================= */
+
+.email-status-filter {
+  width: 150px;
+  height: 46px;
+
+  padding: 0 13px;
+
+  border: 1px solid
+    rgba(111, 95, 151, 0.12);
+
+  border-radius: 12px;
+
+  background: #faf9fc;
+
+  color: #4f465e;
+
+  font-family:
+    Inter,
+    ui-sans-serif,
+    system-ui,
+    sans-serif;
+
+  font-size: 13px;
+  font-weight: 600;
+
+  outline: none;
+
+  cursor: pointer;
+}
+
+.email-status-filter:focus {
+  border-color:
+    rgba(124, 58, 237, 0.40);
+
+  box-shadow:
+    0 0 0 3px
+      rgba(124, 58, 237, 0.07);
+}
+
+
+/* =========================================================
+   EMAIL LIST
+========================================================= */
+
+.email-history-list {
+  width: 100%;
+}
+
+
+/* =========================================================
+   EMAIL ITEM
+========================================================= */
+
+.email-history-item {
+  display: flex;
+
+  gap: 17px;
+
+  padding: 23px 34px;
+
+  border-bottom: 1px solid
+    rgba(111, 95, 151, 0.08);
+
+  transition:
+    background 0.2s ease;
+}
+
+.email-history-item:last-child {
+  border-bottom: none;
+}
+
+.email-history-item:hover {
+  background: #fcfbff;
+}
+
+
+/* =========================================================
+   EMAIL ITEM ICON
+========================================================= */
+
+.email-item-icon {
+  width: 45px;
+  height: 45px;
+
+  flex-shrink: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 13px;
+
+  background: #f1eaff;
+
+  color: #7c3aed;
+}
+
+.email-item-icon svg {
+  width: 20px;
+  height: 20px;
+}
+
+
+/* =========================================================
+   EMAIL ITEM MAIN
+========================================================= */
+
+.email-item-main {
+  flex: 1;
+
+  min-width: 0;
+}
+
+
+/* =========================================================
+   TOP ROW
+========================================================= */
+
+.email-item-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 15px;
+
+  margin-bottom: 7px;
+}
+
+.email-item-top h3 {
+  margin: 0;
+
+  color: #282036;
+
+  font-size: 15px;
+  font-weight: 700;
+
+  font-family:
+    Inter,
+    ui-sans-serif,
+    system-ui,
+    sans-serif;
+}
+
+
+/* =========================================================
+   STATUS
+========================================================= */
+
+.email-status {
+  display: inline-flex;
+  align-items: center;
+
+  gap: 5px;
+
+  padding: 5px 9px;
+
+  border-radius: 999px;
+
+  font-size: 11px;
+  font-weight: 700;
+
+  white-space: nowrap;
+}
+
+.email-status svg {
+  width: 13px;
+  height: 13px;
+}
+
+
+/* SENT */
+
+.email-status.sent {
+  color: #008d6c;
+  background: #eaf9f4;
+}
+
+
+/* PENDING */
+
+.email-status.pending {
+  color: #cc7a00;
+  background: #fff5e3;
+}
+
+
+/* FAILED */
+
+.email-status.failed {
+  color: #d91f27;
+  background: #fff0f1;
+}
+
+
+/* =========================================================
+   RECIPIENT
+========================================================= */
+
+.email-recipient {
+  margin: 0 0 7px;
+
+  color: #8a8295;
+
+  font-size: 12px;
+}
+
+.email-recipient strong {
+  color: #554c61;
+
+  font-weight: 700;
+}
+
+
+/* =========================================================
+   MESSAGE
+========================================================= */
+
+.email-message {
+  margin: 0 0 10px;
+
+  color: #62596c;
+
+  font-size: 13px;
+
+  line-height: 1.6;
+}
+
+
+/* =========================================================
+   TIME
+========================================================= */
+
+.email-item-time {
+  display: flex;
+  align-items: center;
+
+  gap: 6px;
+
+  color: #9a92a3;
+
+  font-size: 11px;
+}
+
+.email-item-time svg {
+  width: 13px;
+  height: 13px;
+}
+
+
+/* =========================================================
+   LOADING / EMPTY / ERROR
+========================================================= */
+
+.email-history-message {
+  min-height: 220px;
+
+  display: flex;
+  flex-direction: column;
+
+  align-items: center;
+  justify-content: center;
+
+  gap: 12px;
+
+  color: #8a8195;
+
+  font-size: 13px;
+}
+
+.email-history-message p {
+  margin: 0;
+}
+
+.email-history-message > svg {
+  width: 30px;
+  height: 30px;
+
+  color: #8b5cf6;
+}
+
+
+/* ERROR */
+
+.email-history-message.error-message {
+  color: #d63a42;
+}
+
+.email-history-message.error-message svg {
+  color: #e53943;
+}
+
+
+/* =========================================================
+   LOADER
+========================================================= */
+
+.email-loader {
+  width: 28px;
+  height: 28px;
+
+  border: 3px solid
+    rgba(124, 58, 237, 0.13);
+
+  border-top-color: #7c3aed;
+
+  border-radius: 50%;
+
+  animation:
+    email-loader-spin 0.8s linear infinite;
+}
+
+@keyframes email-loader-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 1100px) {
+  .email-history-page {
+    padding: 32px 25px 50px;
+  }
+
+  .email-stats {
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr));
+  }
+}
+
+
+@media (max-width: 700px) {
+  .email-history-page {
+    padding: 24px 16px 40px;
+  }
+
+  .email-history-header {
+    margin-bottom: 25px;
+  }
+
+  .email-history-header-icon {
+    display: none;
+  }
+
+  .email-history-title-row {
+    align-items: flex-start;
+  }
+
+  .email-history-title-icon {
+    width: 54px;
+    height: 54px;
+
+    border-radius: 16px;
+  }
+
+  .email-history-title-icon svg {
+    width: 24px;
+    height: 24px;
+  }
+
+  .email-history-title-row h1 {
+    font-size: 36px;
+    letter-spacing: -1px;
+  }
+
+  .email-history-title-row p {
+    font-size: 12px;
+  }
+
+  .email-stats {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  .email-stat-card {
+    min-height: 110px;
+    padding: 21px;
+  }
+
+  .email-stat-number {
+    font-size: 28px !important;
+  }
+
+  .email-history-card {
+    border-radius: 20px;
+  }
+
+  .email-history-card-header {
+    align-items: flex-start;
+    flex-direction: column;
+
+    padding: 23px;
+  }
+
+  .email-refresh-button {
+    width: 100%;
+  }
+
+  .email-history-controls {
+    flex-direction: column;
+    align-items: stretch;
+
+    padding: 18px 23px;
+  }
+
+  .email-status-filter {
+    width: 100%;
+  }
+
+  .email-history-item {
+    padding: 20px 23px;
+  }
+
+  .email-item-top {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 8px;
+  }
+}
+
+
+@media (max-width: 430px) {
+  .email-history-title-row {
+    gap: 12px;
+  }
+
+  .email-history-title-row h1 {
+    font-size: 30px;
+  }
+
+  .email-history-title-icon {
+    width: 48px;
+    height: 48px;
+  }
+
+  .email-stat-card {
+    gap: 16px;
+  }
+
+  .email-stat-icon {
+    width: 52px;
+    height: 52px;
+  }
+}
